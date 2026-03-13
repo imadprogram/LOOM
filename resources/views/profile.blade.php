@@ -65,7 +65,7 @@
             <div id="security" class="border border-gray-100 bg-white rounded-3xl p-6 md:p-8 shadow-[0_4px_20px_-4px_rgba(0,0,0,0.05)]">
                 <h3 class="text-xl font-bold text-gray-900 mb-6">Change Password</h3>
                 
-                <form action="#" method="POST" class="space-y-5">
+                <form action="{{ route('profile.password.update') }}" method="POST" class="space-y-5">
                     @csrf
                     @method('PUT')
 

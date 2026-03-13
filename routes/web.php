@@ -34,6 +34,7 @@ Route::middleware('auth')->group(function () {
     });
 
     Route::put('/profile' , [ProfileController::class , 'update'])->name('profile.update');
+    Route::put('/profile/password' , [ProfileController::class , 'updatePassword'])->name('profile.password.update');
 });
 
 

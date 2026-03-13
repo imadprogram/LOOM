@@ -19,4 +19,19 @@ class ProfileController extends Controller
 
         return back();
     }
+    
+    public function updatePassword(Request $request){
+        $validated = $request->validate([
+            'current_password' => ['current_password'],
+            'new_password' => ['required' ,'confirmed'],
+        ]);
+
+        $user = auth()->user();
+
+        $user->update([
+            'password' => $validated['new_password'],
+        ]);
+
+        return back();
+    }
 }
