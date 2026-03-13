@@ -9,15 +9,26 @@ Route::get('/', function () {
 
 Route::get('/login' , function() {
     return view('login');
-})->name('login');
+})->middleware('guest')->name('login');
 Route::get('/signup' , function() {
     return view('signup');
-})->name('signup');
+})->middleware('guest')->name('signup');
+
+Route::middleware('auth')->group(function () {
+    
+    Route::get('/home' , function(){
+        return view('home');
+    });
+    
+    Route::get('/product', function() {
+        return view('product');
+    });
+});
 
 Route::post('/signup' , [AuthController::class , 'register'])->name('submit.signup');
 Route::post('/login' , [AuthController::class , 'login'])->name('submit.login');
 Route::post('/logout' , [AuthController::class , 'logout'])->name('logout');
 
-Route::get('/home' , function(){
-    return view('home');
+Route::get('/profile' , function(){
+    return view('profile');
 });
