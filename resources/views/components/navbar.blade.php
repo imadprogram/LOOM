@@ -9,7 +9,7 @@
     
     <div class="flex items-center gap-5">
         @auth
-            <a href="#" class="bg-[#52c6be] hover:bg-[#3fad9e] text-white px-5 py-2.5 rounded-full font-bold text-sm transition-all shadow-sm hover:shadow-md hover:-translate-y-0.5 mr-2">
+            <a href="/sell" class="bg-[#52c6be] hover:bg-[#3fad9e] text-white px-5 py-2.5 rounded-full font-bold text-sm transition-all shadow-sm hover:shadow-md hover:-translate-y-0.5 mr-2">
                 Sell an item
             </a>
 
