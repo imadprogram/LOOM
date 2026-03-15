@@ -22,13 +22,18 @@
             <!-- Image Upload Section -->
             <div>
                 <label class="block text-sm font-bold text-gray-700 mb-3">Item Images</label>
-                <label class="block border-2 border-dashed border-gray-300 rounded-2xl p-8 text-center hover:bg-gray-50 hover:border-[#52c6be]/50 transition-colors cursor-pointer group">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-12 h-12 mx-auto text-gray-400 group-hover:text-[#52c6be] mb-3 transition-colors">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 15.75l5.159-5.159a2.25 2.25 0 013.182 0l5.159 5.159m-1.5-1.5l1.409-1.409a2.25 2.25 0 013.182 0l2.909 2.909m-18 3.75h16.5a1.5 1.5 0 001.5-1.5V6a1.5 1.5 0 00-1.5-1.5H3.75A1.5 1.5 0 002.25 6v12a1.5 1.5 0 001.5 1.5zm10.5-11.25h.008v.008h-.008V8.25zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z" />
-                    </svg>
-                    <span class="block text-sm font-bold text-[#52c6be]">Click to upload</span>
-                    <span class="block text-xs text-gray-500 mt-1">PNG, JPG up to 10MB</span>
-                    <input type="file" name="image" class="sr-only" required>
+                <label class="relative block border-2 border-dashed border-gray-300 rounded-2xl p-8 text-center hover:bg-gray-50 hover:border-[#52c6be]/50 transition-colors cursor-pointer group overflow-hidden">
+                    <div id="upload-placeholder">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-12 h-12 mx-auto text-gray-400 group-hover:text-[#52c6be] mb-3 transition-colors">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 15.75l5.159-5.159a2.25 2.25 0 013.182 0l5.159 5.159m-1.5-1.5l1.409-1.409a2.25 2.25 0 013.182 0l2.909 2.909m-18 3.75h16.5a1.5 1.5 0 001.5-1.5V6a1.5 1.5 0 00-1.5-1.5H3.75A1.5 1.5 0 002.25 6v12a1.5 1.5 0 001.5 1.5zm10.5-11.25h.008v.008h-.008V8.25zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z" />
+                        </svg>
+                        <span class="block text-sm font-bold text-[#52c6be]">Click to upload</span>
+                        <span class="block text-xs text-gray-500 mt-1">PNG, JPG up to 10MB</span>
+                    </div>
+
+                    <img id="image-preview" src="#" alt="Preview" class="absolute inset-0 w-full h-full object-cover hidden">
+
+                    <input type="file" name="image" id="image-input" class="sr-only" required accept="image/*" onchange="previewImage(event)">
                 </label>
             </div>
 
@@ -85,3 +90,27 @@
     </div>
 </div>
 @endsection
+
+<script>
+function previewImage(event) {
+    const input = event.target;
+    const preview = document.getElementById('image-preview');
+    const placeholder = document.getElementById('upload-placeholder');
+    
+    if (input.files && input.files[0]) {
+        const reader = new FileReader(); // built-in JS object to read files
+        
+        reader.onload = function(e) {
+            preview.src = e.target.result; // Set the img tag src to the loaded local file
+            preview.classList.remove('hidden'); // Show the img tag
+            placeholder.classList.add('hidden'); // Hide the dashed upload SVG box
+        }
+        
+        reader.readAsDataURL(input.files[0]); // Trigger the file reader
+    } else {
+        preview.src = '#';
+        preview.classList.add('hidden');
+        placeholder.classList.remove('hidden');
+    }
+}
+</script>
