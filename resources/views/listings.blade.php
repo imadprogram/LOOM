@@ -66,9 +66,13 @@
                     <a href="#" class="flex-1 md:flex-none text-center px-5 py-2.5 rounded-full border border-gray-100 text-sm font-bold text-gray-600 hover:bg-gray-50 transition-colors">
                         Edit
                     </a>
-                    <button class="flex-1 md:flex-none text-center px-5 py-2.5 rounded-full bg-red-50 text-red-500 text-sm font-bold hover:bg-red-100 transition-colors">
-                        Delete
-                    </button>
+                    <form action="{{ route('delete.listing' , $item->id) }}" method="post">
+                        @csrf
+                        @method('DELETE')
+                        <button class="flex-1 md:flex-none text-center px-5 py-2.5 rounded-full bg-red-50 text-red-500 text-sm font-bold hover:bg-red-100 transition-colors">
+                            Delete
+                        </button>
+                    </form>
                 </div>
             </div>
         @empty

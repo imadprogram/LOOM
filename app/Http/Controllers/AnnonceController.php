@@ -66,4 +66,13 @@ class AnnonceController extends Controller
         
         return back();
     }
+
+
+    public function delete($id){
+        $annonce = Annonce::findOrFail($id);
+
+        $annonce->delete();
+
+        return back();
+    }
 }

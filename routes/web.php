@@ -50,8 +50,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/product/{id}' , [AnnonceController::class , 'info'])->name('product.details');
 
     Route::put('/my-listings/{id}/sold' , [AnnonceController::class , 'markAsSold'])->name('mark.as.sold');
-
     Route::put('/my-listings/{id}/active' , [AnnonceController::class , 'markAsActive'])->name('mark.as.active');
+    Route::delete('/my-listings/{id}/delete' , [AnnonceController::class , 'delete'])->name('delete.listing');
 });
 
 
