@@ -52,6 +52,9 @@ Route::middleware('auth')->group(function () {
     Route::put('/my-listings/{id}/sold' , [AnnonceController::class , 'markAsSold'])->name('mark.as.sold');
     Route::put('/my-listings/{id}/active' , [AnnonceController::class , 'markAsActive'])->name('mark.as.active');
     Route::delete('/my-listings/{id}/delete' , [AnnonceController::class , 'delete'])->name('delete.listing');
+    Route::get('/my-listings/{id}/edit' , [AnnonceController::class , 'edit'])->name('edit.listing');
+
+    Route::put('/my-listings/{id}/edit' , [AnnonceController::class , 'update'])->name('update.listing');
 });
 
 

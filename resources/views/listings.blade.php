@@ -63,7 +63,7 @@
                         </form>
                     @endif
 
-                    <a href="#" class="flex-1 md:flex-none text-center px-5 py-2.5 rounded-full border border-gray-100 text-sm font-bold text-gray-600 hover:bg-gray-50 transition-colors">
+                    <a href="{{ route('edit.listing' , $item->id) }}" class="flex-1 md:flex-none text-center px-5 py-2.5 rounded-full border border-gray-100 text-sm font-bold text-gray-600 hover:bg-gray-50 transition-colors">
                         Edit
                     </a>
                     <form action="{{ route('delete.listing' , $item->id) }}" method="post">
