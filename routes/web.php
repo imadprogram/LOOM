@@ -24,7 +24,7 @@ Route::get('/signup' , function() {
 Route::middleware('auth')->group(function () {
     
     Route::get('/home' , function(){
-        $annonces = Annonce::with(['user', 'images'])->latest()->get();
+        $annonces = Annonce::with(['user', 'image'])->latest()->get();
         return view('home', compact('annonces'));
     });
 
