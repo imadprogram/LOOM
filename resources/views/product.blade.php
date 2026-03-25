@@ -14,7 +14,7 @@
         <!-- Product Image Section -->
         <div class="relative group rounded-3xl overflow-hidden shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-gray-100 bg-white md:p-4 aspect-square">
              <div class="w-full h-full rounded-[1.5rem] overflow-hidden relative">
-                 <img src="https://picsum.photos/1000/1000?seed=10" alt="Product Name" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
+                 <img src="{{ asset('storage/' . $annonce->image->file_path) }}" alt="Product Name" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
                  <!-- Favorite Button -->
                  <button class="absolute top-6 right-6 bg-white/90 backdrop-blur-md p-3.5 rounded-full shadow-lg text-gray-400 hover:text-red-500 transition-colors">
                      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-7 h-7">
@@ -28,18 +28,19 @@
         <div class="flex flex-col py-2 lg:py-6">
             <div class="flex-1">
                 <div class="flex items-center gap-3 mb-6">
+                    <span class="border border-gray-200 text-gray-500 px-4 py-1.5 rounded-full font-bold text-xs uppercase tracking-wider">{{ $annonce->category->name }}</span>
+                    
                     <span class="bg-[#52c6be]/10 text-[#52c6be] px-4 py-1.5 rounded-full font-bold text-xs uppercase tracking-wider">New Arrival</span>
-                    <span class="border border-gray-200 text-gray-500 px-4 py-1.5 rounded-full font-bold text-xs uppercase tracking-wider">Tech</span>
                 </div>
 
-                <h1 class="text-4xl md:text-5xl font-black text-gray-900 tracking-tight leading-tight mb-4">Premium Watch v2</h1>
-                <p class="text-4xl font-black text-[#52c6be] mb-8">45.00€</p>
+                <h1 class="text-4xl md:text-5xl font-black text-gray-900 tracking-tight leading-tight mb-4">{{ $annonce->title }}</h1>
+                <p class="text-4xl font-black text-[#52c6be] mb-8">{{ $annonce->price }}€</p>
 
                 <div class="w-full h-[1px] bg-gray-100 mb-8"></div>
 
                 <h3 class="font-bold text-gray-900 text-xl mb-4">Description</h3>
                 <p class="text-gray-500 leading-relaxed text-lg mb-8">
-                    This is a placeholder description for the high-end watch. It features an ultra-responsive interface, premium build quality, and a design that stands out in any collection. Perfect for daily use or special occasions.
+                    {{ $annonce->description }}
                 </p>
 
                 <div class="space-y-4 mb-10">
@@ -76,10 +77,10 @@
             <div class="p-6 bg-gray-50/50 rounded-3xl flex items-center justify-between border border-gray-100 hover:bg-gray-50 transition-colors cursor-pointer group">
                 <div class="flex items-center gap-4">
                     <div class="w-14 h-14 rounded-full overflow-hidden border-2 border-white shadow-md relative">
-                        <img src="https://i.pravatar.cc/150?u=seller" class="w-full h-full object-cover">
+                        <img src="https://api.dicebear.com/7.x/identicon/svg?seed=anytext" class="w-full h-full object-cover">
                     </div>
                     <div>
-                        <p class="font-bold text-gray-900 leading-tight group-hover:text-[#52c6be] transition-colors">Alex Dupont</p>
+                        <p class="font-bold text-gray-900 leading-tight group-hover:text-[#52c6be] transition-colors">{{ $annonce->user->first_name }}</p>
                         <p class="text-xs text-gray-500 font-medium mt-1">Verified Seller Since 2024</p>
                     </div>
                 </div>
@@ -91,7 +92,6 @@
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-4 h-4"><path fill-rule="evenodd" d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.006 5.404.434c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.434 2.082-5.005Z" clip-rule="evenodd" /></svg>
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-4 h-4"><path fill-rule="evenodd" d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.006 5.404.434c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.434 2.082-5.005Z" clip-rule="evenodd" /></svg>
                     </div>
-                    <p class="text-[11px] text-gray-500 font-bold uppercase mt-1 tracking-wider">42 Sales</p>
                 </div>
             </div>
         </div>

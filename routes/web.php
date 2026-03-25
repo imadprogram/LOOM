@@ -27,10 +27,6 @@ Route::middleware('auth')->group(function () {
         $annonces = Annonce::with(['user', 'images'])->latest()->get();
         return view('home', compact('annonces'));
     });
-    
-    Route::get('/product', function() {
-        return view('product');
-    });
 
     Route::get('/profile' , function(){
         return view('profile');
@@ -45,6 +41,8 @@ Route::middleware('auth')->group(function () {
         return view('sell', compact('categories'));
     });
     Route::post('/sell/item' , [AnnonceController::class , 'publish'])->name('publish.item');
+
+    Route::get('/product/{id}' , [AnnonceController::class , 'info'])->name('product.details');
 });
 
 

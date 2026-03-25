@@ -38,4 +38,11 @@ class AnnonceController extends Controller
 
         return redirect('/home');
     }
+
+
+    public function info($id){
+        $annonce = Annonce::findOrFail($id);
+
+        return view('product', compact('annonce'));
+    }
 }

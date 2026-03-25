@@ -44,7 +44,7 @@
                                 </div>
                                 <span class="text-sm font-medium text-gray-600 truncate max-w-[100px]">{{ $annonce->user->first_name ?? 'Unknown' }}</span>
                             </div>
-                            <a href="/product" class="text-sm font-bold text-white bg-[#52c6be] hover:bg-[#3fad9e] shadow-sm hover:shadow px-5 py-2 rounded-full transition-all inline-block">View</a>
+                            <a href="{{ route('product.details', $annonce->id) }}" class="text-sm font-bold text-white bg-[#52c6be] hover:bg-[#3fad9e] shadow-sm hover:shadow px-5 py-2 rounded-full transition-all inline-block">View</a>
                         </div>
                     </div>
                 </div>
