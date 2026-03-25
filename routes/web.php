@@ -32,6 +32,11 @@ Route::middleware('auth')->group(function () {
         return view('profile');
     });
 
+    Route::get('/my-listings' , function(){
+        $listings = Annonce::with(['user' , 'image'])->where('user_id' , auth()->id())->latest()->get();
+        return view('listings' , compact('listings'));
+    });
+
     Route::put('/profile' , [ProfileController::class , 'update'])->name('profile.update');
     Route::put('/profile/password' , [ProfileController::class , 'updatePassword'])->name('profile.password.update');
     
