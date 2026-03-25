@@ -45,4 +45,25 @@ class AnnonceController extends Controller
 
         return view('product', compact('annonce'));
     }
+
+
+    public function markAsSold($id){
+        $annonce = Annonce::findOrFail($id);
+
+        $annonce->update([
+            'status' => 'sold'
+        ]);
+
+        return back();
+    }
+
+    public function markAsActive($id){
+        $annonce = Annonce::findOrFail($id);
+
+        $annonce->update([
+            'status' => 'active'
+        ]);
+        
+        return back();
+    }
 }

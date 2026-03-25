@@ -48,6 +48,10 @@ Route::middleware('auth')->group(function () {
     Route::post('/sell/item' , [AnnonceController::class , 'publish'])->name('publish.item');
 
     Route::get('/product/{id}' , [AnnonceController::class , 'info'])->name('product.details');
+
+    Route::put('/my-listings/{id}/sold' , [AnnonceController::class , 'markAsSold'])->name('mark.as.sold');
+
+    Route::put('/my-listings/{id}/active' , [AnnonceController::class , 'markAsActive'])->name('mark.as.active');
 });
 
 

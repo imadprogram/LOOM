@@ -46,13 +46,21 @@
                 <div class="flex items-center gap-3 w-full md:w-auto">
                     <!-- Status Toggle Button -->
                     @if($item->status == 'active')
-                        <button class="flex-1 md:flex-none text-center px-5 py-2.5 rounded-full bg-[#52c6be]/10 text-[#52c6be] text-sm font-bold hover:bg-[#52c6be]/20 transition-colors">
-                            Mark as Sold
-                        </button>
+                        <form action="{{ route('mark.as.sold' , $item->id) }}" method="post">
+                            @csrf
+                            @method('PUT')
+                            <button class="flex-1 md:flex-none text-center px-5 py-2.5 rounded-full bg-[#52c6be]/10 text-[#52c6be] text-sm font-bold hover:bg-[#52c6be]/20 transition-colors">
+                                Mark as Sold
+                            </button>
+                        </form>
                     @else
-                        <button class="flex-1 md:flex-none text-center px-5 py-2.5 rounded-full bg-green-50 text-green-600 text-sm font-bold hover:bg-green-100 transition-colors">
-                            Mark as Active
-                        </button>
+                        <form action="{{ route('mark.as.active' , $item->id) }}" method="post">
+                            @csrf
+                            @method('PUT')
+                            <button class="flex-1 md:flex-none text-center px-5 py-2.5 rounded-full bg-green-50 text-green-600 text-sm font-bold hover:bg-green-100 transition-colors">
+                                Mark as Active
+                            </button>
+                        </form>
                     @endif
 
                     <a href="#" class="flex-1 md:flex-none text-center px-5 py-2.5 rounded-full border border-gray-100 text-sm font-bold text-gray-600 hover:bg-gray-50 transition-colors">
