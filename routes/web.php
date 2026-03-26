@@ -5,6 +5,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\AnnonceController;
 use App\Models\Annonce;
+use App\Http\Controllers\BoostController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -24,7 +25,7 @@ Route::get('/signup' , function() {
 Route::middleware('auth')->group(function () {
     
     Route::get('/home' , function(){
-        $annonces = Annonce::with(['user', 'image'])->latest()->get();
+        $annonces = Annonce::with(['user', 'image'])->orderByRaw('boosted_until > NOW() DESC')->latest()->get();
         return view('home', compact('annonces'));
     });
 
@@ -55,6 +56,10 @@ Route::middleware('auth')->group(function () {
     Route::get('/my-listings/{id}/edit' , [AnnonceController::class , 'edit'])->name('edit.listing');
 
     Route::put('/my-listings/{id}/edit' , [AnnonceController::class , 'update'])->name('update.listing');
+
+
+    Route::post('/boost/{id}' , [BoostController::class , 'checkout'])->name('boost.checkout');
+    Route::get('/boost/success/{id}' , [BoostController::class, 'success'])->name('boost.success');
 });
 
 

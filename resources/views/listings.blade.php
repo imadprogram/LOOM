@@ -63,6 +63,19 @@
                         </form>
                     @endif
 
+                    @if(!$item->boosted_until || $item->boosted_until < now())
+                        <form action="{{ route('boost.checkout', $item->id) }}" method="POST">
+                            @csrf
+                            <button class="flex-1 md:flex-none text-center px-5 py-2.5 rounded-full bg-amber-50 text-amber-600 text-sm font-bold hover:bg-amber-100 transition-colors">
+                                🚀 Boost
+                            </button>
+                        </form>
+                    @else
+                        <span class="flex-1 md:flex-none text-center px-5 py-2.5 rounded-full bg-amber-100 text-amber-600 text-sm font-bold">
+                            🚀 Boosted
+                        </span>
+                    @endif
+
                     <a href="{{ route('edit.listing' , $item->id) }}" class="flex-1 md:flex-none text-center px-5 py-2.5 rounded-full border border-gray-100 text-sm font-bold text-gray-600 hover:bg-gray-50 transition-colors">
                         Edit
                     </a>

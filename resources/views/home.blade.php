@@ -10,7 +10,7 @@
             <p class="text-gray-500 mt-1 font-medium">Explore the best items from our community</p>
         </div>
         <div class="bg-[#52c6be]/10 text-[#52c6be] px-4 py-2 rounded-full font-bold text-sm">
-            4 Items
+            {{ $annonces->where('status', 'active')->count() }} Items
         </div>
     </div>
 
@@ -22,7 +22,7 @@
                 
                     <div class="group bg-white rounded-3xl overflow-hidden shadow-[0_4px_20px_-4px_rgba(0,0,0,0.05)] border border-gray-100 hover:-translate-y-1 hover:shadow-[0_12px_30px_-4px_rgba(82,198,190,0.15)] transition-all duration-300">
                         <figure class="relative aspect-[4/3] overflow-hidden bg-gray-100 flex items-center justify-center">
-                            @if($annonce->image->count() > 0)
+                            @if($annonce->image)
                                 <img src="{{ asset('storage/' . $annonce->image->file_path) }}" alt="Product" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
                             @else
                                 <span class="text-gray-400 font-bold">No Image</span>
