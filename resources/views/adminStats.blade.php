@@ -98,7 +98,9 @@
                             <td class="p-4 py-5 text-gray-400 text-sm font-medium text-right">Joined {{ $member->created_at->diffForHumans() }}</td>
                         </tr>
                     @empty
-                        
+                        <tr>
+                            <td colspan="4" class="p-8 text-center text-gray-400 font-medium">No users have registered yet.</td>
+                        </tr>
                     @endforelse
                 </tbody>
             </table>
@@ -114,18 +116,20 @@
         <div class="flex-1 p-0 overflow-x-auto">
             <table class="w-full text-left border-collapse">
                 <tbody>
-                    <tr class="hover:bg-gray-50 border-b border-gray-50 last:border-none transition">
-                        <td class="p-4 py-5 w-16"><div class="w-10 h-10 rounded-xl bg-gray-200"></div></td>
-                        <td class="p-4 py-5 font-bold text-gray-900">Vintage Watch</td>
-                        <td class="p-4 py-5 text-[#52c6be] font-bold">$120</td>
-                        <td class="p-4 py-5 text-gray-400 text-sm font-medium text-right">Just now</td>
-                    </tr>
-                    <tr class="hover:bg-gray-50 border-b border-gray-50 last:border-none transition">
-                        <td class="p-4 py-5 w-16"><div class="w-10 h-10 rounded-xl bg-gray-200"></div></td>
-                        <td class="p-4 py-5 font-bold text-gray-900">Playstation 5</td>
-                        <td class="p-4 py-5 text-[#52c6be] font-bold">$400</td>
-                        <td class="p-4 py-5 text-gray-400 text-sm font-medium text-right">2 hrs ago</td>
-                    </tr>
+                    @forelse ($newestAnnonces as $annonce)
+                        
+                        <tr class="hover:bg-gray-50 border-b border-gray-50 last:border-none transition">
+                            <td class="p-4 py-5 w-16"><div class="w-10 h-10 rounded-xl bg-gray-200"></div></td>
+                            <td class="p-4 py-5 font-bold text-gray-900">{{ $annonce->title }}</td>
+                            <td class="p-4 py-5 text-[#52c6be] font-bold">${{ $annonce->price }}</td>
+                            <td class="p-4 py-5 text-gray-400 text-sm font-medium text-right">{{ $annonce->created_at->diffForHumans() }}</td>
+                        </tr>
+
+                    @empty
+                        <tr>
+                            <td colspan="4" class="p-8 text-center text-gray-400 font-medium">No annonces have been posted yet.</td>
+                        </tr>
+                    @endforelse
                 </tbody>
             </table>
         </div>
