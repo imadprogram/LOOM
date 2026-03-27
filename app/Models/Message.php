@@ -7,7 +7,7 @@ use App\Models\User;
 
 class Message extends Model
 {
-    protected $fillable = ['sender_id' , 'receiver_id' , 'annonce_id' , 'content' ];
+    protected $fillable = ['sender_id' , 'receiver_id' , 'annonce_id' , 'content', 'is_read'];
 
 
     public function sender(){

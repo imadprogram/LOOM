@@ -20,12 +20,26 @@ class MessageController extends Controller
 
         $contacts = User::whereIn('id', $contactIds)->get();
 
+        // Calculate unread messages for each contact on the sidebar
+        foreach ($contacts as $contact) {
+            $contact->unread_count = Message::where('sender_id', $contact->id)
+                                            ->where('receiver_id', $userId)
+                                            ->where('is_read', false)
+                                            ->count();
+        }
+
         $activeContact = null;
         $messages = collect();
         $annonceId = $request->annonce_id;
 
         if ($request->has('user_id')) {
             $activeContact = User::findOrFail($request->user_id);
+            
+            // Mark all messages FROM this active contact TO us as read!
+            Message::where('sender_id', $activeContact->id)
+                   ->where('receiver_id', $userId)
+                   ->where('is_read', false)
+                   ->update(['is_read' => true]);
             
             $messages = Message::where(function ($query) use ($userId, $activeContact) {
                 $query->where('sender_id', $userId)->where('receiver_id', $activeContact->id);

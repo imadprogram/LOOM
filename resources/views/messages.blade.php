@@ -20,8 +20,11 @@
                         {{ substr($contact->first_name, 0, 1) }}
                     </div>
                     <div class="flex-1 overflow-hidden">
-                        <h4 class="font-bold {{ $isActive ? 'text-gray-900' : 'text-gray-700' }} truncate">{{ $contact->first_name }} {{ $contact->last_name }}</h4>
+                        <h4 class="font-bold {{ $isActive ? 'text-gray-900' : ($contact->unread_count > 0 ? 'text-gray-900 text-lg' : 'text-gray-700') }} truncate">{{ $contact->first_name }} {{ $contact->last_name }}</h4>
                     </div>
+                    @if($contact->unread_count > 0 && !$isActive)
+                        <div class="w-3 h-3 bg-red-500 rounded-full shadow-sm"></div>
+                    @endif
                 </a>
             @empty
                 <div class="text-center text-gray-400 p-4">No conversations yet.</div>
