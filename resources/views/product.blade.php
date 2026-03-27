@@ -65,12 +65,9 @@
 
             <!-- Action Buttons -->
             <div class="flex flex-col sm:flex-row gap-4 mb-10 mt-auto">
-                <button class="flex-1 h-14 bg-[#52c6be] hover:bg-[#3fad9e] shadow-lg shadow-[#52c6be]/20 rounded-full text-white font-bold text-lg transition-all hover:-translate-y-0.5">
-                    Buy Now
-                </button>
-                <button class="flex-1 h-14 border-2 border-gray-200 hover:border-gray-900 text-gray-900 rounded-full font-bold text-lg transition-all">
+                <a href="{{ route('messages.index', ['user_id' => $annonce->user_id, 'annonce_id' => $annonce->id]) }}" class="flex-1 flex justify-center items-center h-14 bg-[#52c6be] hover:bg-[#3fad9e] shadow-lg shadow-[#52c6be]/20 rounded-full text-white font-bold text-lg transition-all hover:-translate-y-0.5">
                     Message Seller
-                </button>
+                </a>
             </div>
 
             <!-- Seller Info -->

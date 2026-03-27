@@ -6,6 +6,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\AnnonceController;
 use App\Models\Annonce;
 use App\Http\Controllers\BoostController;
+use App\Http\Controllers\MessageController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -60,6 +61,10 @@ Route::middleware('auth')->group(function () {
 
     Route::post('/boost/{id}' , [BoostController::class , 'checkout'])->name('boost.checkout');
     Route::get('/boost/success/{id}' , [BoostController::class, 'success'])->name('boost.success');
+
+
+    Route::get('/messages', [MessageController::class, 'index'])->name('messages.index');
+    Route::post('/messages' , [MessageController::class, 'store'])->name('messages.store');
 });
 
 
