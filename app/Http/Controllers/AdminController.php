@@ -17,6 +17,10 @@ class AdminController extends Controller
         $activeBoosts = Annonce::where('is_boosted' , true)->count();
 
 
-        return view('adminStats' , compact('users' , 'activeListings' , 'soldListings' , 'activeBoosts'));
+        $newestMembers = User::latest()->limit(2)->get();
+        $newestAnnonces = Annonce::latest()->limit(2)->get();
+
+
+        return view('adminStats' , compact('users' , 'activeListings' , 'soldListings' , 'activeBoosts' , 'newestMembers' , 'newestAnnonces'));
     }
 }

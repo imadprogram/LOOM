@@ -90,18 +90,16 @@
         <div class="flex-1 p-0 overflow-x-auto">
             <table class="w-full text-left border-collapse">
                 <tbody>
-                    <tr class="hover:bg-gray-50 border-b border-gray-50 last:border-none transition">
-                        <td class="p-4 py-5 w-16"><div class="w-10 h-10 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center font-bold">J</div></td>
-                        <td class="p-4 py-5 font-bold text-gray-900">John Doe</td>
-                        <td class="p-4 py-5 text-gray-500 text-sm">john@example.com</td>
-                        <td class="p-4 py-5 text-gray-400 text-sm font-medium text-right">Joined Today</td>
-                    </tr>
-                    <tr class="hover:bg-gray-50 border-b border-gray-50 last:border-none transition">
-                        <td class="p-4 py-5 w-16"><div class="w-10 h-10 rounded-full bg-orange-100 text-orange-600 flex items-center justify-center font-bold">S</div></td>
-                        <td class="p-4 py-5 font-bold text-gray-900">Sarah Smith</td>
-                        <td class="p-4 py-5 text-gray-500 text-sm">sarah.s@test.com</td>
-                        <td class="p-4 py-5 text-gray-400 text-sm font-medium text-right">Joined Yesterday</td>
-                    </tr>
+                    @forelse ($newestMembers as $member)
+                        <tr class="hover:bg-gray-50 border-b border-gray-50 last:border-none transition">
+                            <td class="p-4 py-5 w-16"><div class="w-10 h-10 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center font-bold">J</div></td>
+                            <td class="p-4 py-5 font-bold text-gray-900">{{ $member->first_name}} {{ $member->last_name }}</td>
+                            <td class="p-4 py-5 text-gray-500 text-sm">{{ $member->email }}</td>
+                            <td class="p-4 py-5 text-gray-400 text-sm font-medium text-right">Joined {{ $member->created_at->diffForHumans() }}</td>
+                        </tr>
+                    @empty
+                        
+                    @endforelse
                 </tbody>
             </table>
         </div>
