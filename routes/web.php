@@ -7,6 +7,7 @@ use App\Http\Controllers\AnnonceController;
 use App\Models\Annonce;
 use App\Http\Controllers\BoostController;
 use App\Http\Controllers\MessageController;
+use App\Http\Controllers\AdminController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -65,6 +66,24 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/messages', [MessageController::class, 'index'])->name('messages.index');
     Route::post('/messages' , [MessageController::class, 'store'])->name('messages.store');
+});
+
+
+Route::middleware('admin')->group(function () {
+
+    Route::get('/admin/dashboard', [AdminController::class , 'dashboard']);
+
+    Route::get('/admin/annonces' , function(){
+        return view('adminAnnonces');
+    });
+
+    Route::get('/admin/users' , function(){
+        return view('adminUsers');
+    });
+
+    Route::get('/admin/reports' , function(){
+        return view('adminReports');
+    });
 });
 
 
