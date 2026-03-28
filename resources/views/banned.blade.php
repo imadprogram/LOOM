@@ -31,9 +31,6 @@
             </button>
         </form>
 
-        <div class="mt-6 text-sm text-gray-400">
-            If you believe this was a mistake, please <a href="#" class="text-[#52c6be] hover:underline font-bold">contact support</a>.
-        </div>
     </div>
 
 </body>

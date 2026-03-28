@@ -20,11 +20,13 @@ Route::get('/signup' , function() {
     return view('signup');
 })->middleware('guest')->name('signup');
 
+Route::get('/banned', function() {
+    return view('banned');
+});
 
 
 
-
-Route::middleware('auth')->group(function () {
+Route::middleware('auth' , 'banned')->group(function () {
     
     Route::get('/home' , function(){
         $annonces = Annonce::with(['user', 'image'])->orderByRaw('boosted_until > NOW() DESC')->latest()->get();
