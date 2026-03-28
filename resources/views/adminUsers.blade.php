@@ -44,14 +44,25 @@
                         <td class="p-5 text-gray-400 text-sm font-medium">{{ $user->created_at->format('M d, Y') }}</td>
                         <td class="p-5 text-right">
                             @if(!$user->is_admin)
-                                <!-- We will hook this form up later! -->
-                                <form action="#" method="POST" class="inline" onsubmit="return confirm('Are you sure you want to ban this user? This will delete all their annonces and messages.')">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit" class="text-red-500 hover:text-red-700 font-bold text-sm bg-red-50 hover:bg-red-100 px-4 py-2 rounded-xl transition-colors">
-                                        Ban User
-                                    </button>
-                                </form>
+
+                                @if(!$user->is_banned)
+                                    <form action="{{ route('ban.user' , $user->id) }}" method="POST" class="inline" >
+                                        @csrf
+                                        @method('PUT')
+                                        <button type="submit" class="text-red-500 hover:text-red-700 font-bold text-sm bg-red-50 hover:bg-red-100 px-4 py-2 rounded-xl transition-colors">
+                                            Ban User
+                                        </button>
+                                    </form>
+                                @else
+                                    <form action="{{ route('unban.user' , $user->id) }}" method="POST" class="inline" >
+                                        @csrf
+                                        @method('PUT')
+                                        <button type="submit" class="text-green-600 hover:text-green-800 font-bold text-sm bg-green-50 hover:bg-green-100 px-4 py-2 rounded-xl transition-colors">
+                                            Unban User
+                                        </button>
+                                    </form>
+                                    
+                                @endif
                             @else
                                 <span class="text-gray-300 text-sm italic font-medium">Protected Role</span>
                             @endif

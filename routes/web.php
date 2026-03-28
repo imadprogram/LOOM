@@ -79,6 +79,11 @@ Route::middleware('admin')->group(function () {
 
     Route::get('/admin/users' , [AdminController::class , 'users']);
 
+    Route::put('/admin/users/ban/{id}' , [AdminController::class , 'ban'])->name('ban.user');
+    Route::put('/admin/users/unban/{id}' , [AdminController::class , 'unban'])->name('unban.user');
+
+
+
     Route::get('/admin/reports' , function(){
         return view('adminReports');
     });

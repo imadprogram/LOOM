@@ -30,4 +30,25 @@ class AdminController extends Controller
 
         return view('adminUsers' , compact('users'));
     }
+
+    public function ban($id){
+        $user = User::findOrFail($id);
+
+        $user->update([
+            'is_banned' => true
+        ]);
+
+        return back();
+    }
+
+
+    public function unban($id){
+        $user = User::findOrFail($id);
+
+        $user->update([
+            'is_banned' => false
+        ]);
+
+        return back();
+    }
 }
