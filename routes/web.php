@@ -77,9 +77,7 @@ Route::middleware('admin')->group(function () {
         return view('adminAnnonces');
     });
 
-    Route::get('/admin/users' , function(){
-        return view('adminUsers');
-    });
+    Route::get('/admin/users' , [AdminController::class , 'users']);
 
     Route::get('/admin/reports' , function(){
         return view('adminReports');

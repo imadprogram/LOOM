@@ -23,4 +23,11 @@ class AdminController extends Controller
 
         return view('adminStats' , compact('users' , 'activeListings' , 'soldListings' , 'activeBoosts' , 'newestMembers' , 'newestAnnonces'));
     }
+
+
+    public function users(){
+        $users = User::latest()->paginate(10);
+
+        return view('adminUsers' , compact('users'));
+    }
 }
