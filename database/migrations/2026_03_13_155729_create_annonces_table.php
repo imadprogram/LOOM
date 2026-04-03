@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('location');
             $table->boolean('is_boosted')->default(false);
             $table->timestamp('boosted_until')->nullable();
-            $table->enum('status' , ['active' , 'sold'])->default('active');
+            $table->enum('status' , ['active' , 'sold', 'suspended'])->default('active');
             $table->foreignId('user_id')->constrained()->cascadeOnDelete();
             $table->foreignId('category_id')->constrained()->cascadeOnDelete();
             $table->timestamps();

@@ -1,13 +1,11 @@
 <nav class="w-full bg-white/80 backdrop-blur-md border-b border-gray-100 flex justify-between items-center px-6 lg:px-10 py-4 sticky top-0 z-50">
     <a href="/home" class="flex items-center gap-2 hover:opacity-80 transition-opacity">
-        <!-- Loom Logo matching the Figma design -->
         <svg fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" class="w-8 h-8 text-[#52c6be]">
             <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 10.5V6a3.75 3.75 0 10-7.5 0v4.5m11.356-1.993l1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 01-1.12-1.243l1.264-12A1.125 1.125 0 015.513 7.5h12.974c.576 0 1.059.435 1.119 1.007z" />
         </svg>
         <h1 class="text-2xl font-black tracking-tighter text-gray-900">Loom</h1>
     </a>
 
-    <!-- Search Bar -->
     <div class="hidden md:flex flex-1 max-w-md mx-6">
         <div class="relative w-full">
             <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
@@ -26,7 +24,6 @@
             </a>
 
             <div class="relative inline-block text-left">
-                <!-- Dropdown Trigger -->
                 <button onclick="toggleDropdown()" class="flex items-center gap-2 p-1 pl-3 pr-2 rounded-full border border-gray-100 hover:bg-gray-50 transition-all focus:outline-none group">
                     <span class="text-sm font-bold text-gray-700 group-hover:text-[#52c6be]">{{ auth()->user()->first_name }}</span>
                     <div class="w-8 h-8 rounded-full bg-[#52c6be]/10 text-[#52c6be] flex items-center justify-center">
@@ -36,7 +33,6 @@
                     </div>
                 </button>
 
-                <!-- Dropdown Menu -->
                 <div id="user-dropdown" class="absolute right-0 mt-3 w-56 bg-white rounded-2xl shadow-xl border border-gray-100 py-2 z-50 transition-all hidden">
                     <div class="px-4 py-3 border-b border-gray-50">
                         <p class="text-xs font-bold text-gray-400 uppercase tracking-wider">Account</p>

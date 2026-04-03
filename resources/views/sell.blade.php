@@ -98,7 +98,7 @@ function previewImage(event) {
     const placeholder = document.getElementById('upload-placeholder');
     
     if (input.files && input.files[0]) {
-        const reader = new FileReader(); // built-in JS object to read files
+        const reader = new FileReader();
         
         reader.onload = function(e) {
             preview.src = e.target.result; // Set the img tag src to the loaded local file

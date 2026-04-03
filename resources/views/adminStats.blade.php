@@ -1,13 +1,11 @@
 @extends('layouts.appAdmin')
 
 @section('content')
-<!-- Header -->
 <div class="mb-8">
     <h1 class="text-3xl font-black text-gray-900 tracking-tight">Overview Dashboard</h1>
     <p class="text-gray-500 font-medium mt-1">Here is a quick snapshot of Loom today.</p>
 </div>
 
-<!-- Alert Banner (Placeholder for unresolved reports) -->
 <div class="bg-red-50 border-l-4 border-red-500 p-4 mb-8 rounded-r-lg shadow-sm flex items-start gap-4">
     <div class="text-red-500 mt-0.5">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6">
@@ -20,9 +18,7 @@
     </div>
 </div>
 
-<!-- KPI Cards -->
 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-    <!-- Card 1 -->
     <div class="bg-white p-6 rounded-3xl border border-gray-100 shadow-sm hover:shadow-md transition-all">
         <div class="flex items-center justify-between mb-4">
             <h3 class="font-bold text-gray-500">Total Users</h3>
@@ -36,7 +32,6 @@
         <p class="text-sm text-green-500 font-bold mt-2"></p>
     </div>
 
-    <!-- Card 2 -->
     <div class="bg-white p-6 rounded-3xl border border-gray-100 shadow-sm hover:shadow-md transition-all">
         <div class="flex items-center justify-between mb-4">
             <h3 class="font-bold text-gray-500">Active Listings</h3>
@@ -50,7 +45,6 @@
         <p class="text-sm text-gray-400 font-bold mt-2">Currently available to buy</p>
     </div>
 
-    <!-- Card 3 -->
     <div class="bg-white p-6 rounded-3xl border border-gray-100 shadow-sm hover:shadow-md transition-all">
         <div class="flex items-center justify-between mb-4">
             <h3 class="font-bold text-gray-500">Items Sold</h3>
@@ -64,7 +58,6 @@
         <p class="text-sm text-green-500 font-bold mt-2">Successful sales!</p>
     </div>
 
-    <!-- Card 4 -->
     <div class="bg-white p-6 rounded-3xl border border-gray-100 shadow-sm hover:shadow-md transition-all">
         <div class="flex items-center justify-between mb-4">
             <h3 class="font-bold text-gray-500">Active Boosts</h3>
@@ -79,9 +72,7 @@
     </div>
 </div>
 
-<!-- Snapshots Row -->
 <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 pb-12">
-    <!-- New Users Table -->
     <div class="bg-white rounded-3xl border border-gray-100 shadow-sm overflow-hidden flex flex-col">
         <div class="p-6 border-b border-gray-100 flex justify-between items-center bg-gray-50/50">
             <h2 class="font-bold text-lg text-gray-900">Newest Members</h2>
@@ -107,7 +98,6 @@
         </div>
     </div>
 
-    <!-- Active Annonces Table -->
     <div class="bg-white rounded-3xl border border-gray-100 shadow-sm overflow-hidden flex flex-col">
         <div class="p-6 border-b border-gray-100 flex justify-between items-center bg-gray-50/50">
             <h2 class="font-bold text-lg text-gray-900">Latest Annonces</h2>

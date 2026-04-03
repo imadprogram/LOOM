@@ -14,7 +14,6 @@
         </div>
     </div>
 
-    <!-- Scrollable Section -->
     <div class="h-[calc(100vh-200px)] overflow-y-auto pb-10 scrollbar-hide">
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
             @forelse($annonces as $annonce)

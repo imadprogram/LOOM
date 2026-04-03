@@ -8,7 +8,6 @@
     </div>
 
     <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-        <!-- Sidebar Navigation -->
         <div class="md:col-span-1 border border-gray-100 bg-white rounded-3xl p-6 shadow-[0_4px_20px_-4px_rgba(0,0,0,0.05)] h-fit">
             <div class="flex flex-col gap-2">
                 <a href="#general" class="flex items-center gap-3 bg-[#52c6be]/10 text-[#52c6be] px-4 py-3 rounded-2xl font-bold transition-all">
@@ -26,15 +25,12 @@
             </div>
         </div>
 
-        <!-- Forms Section -->
         <div class="md:col-span-2 space-y-8">
-            <!-- General Information Form -->
             <div id="general" class="border border-gray-100 bg-white rounded-3xl p-6 md:p-8 shadow-[0_4px_20px_-4px_rgba(0,0,0,0.05)]">
                 <h3 class="text-xl font-bold text-gray-900 mb-6">General Information</h3>
                 
                 <form action="{{ route('profile.update') }}" method="POST" class="space-y-5">
                     @csrf
-                    <!-- We use PUT method generally for updates, though it's simulated here -->
                     @method('PUT') 
                     
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
@@ -61,7 +57,6 @@
                 </form>
             </div>
 
-            <!-- Password Form -->
             <div id="security" class="border border-gray-100 bg-white rounded-3xl p-6 md:p-8 shadow-[0_4px_20px_-4px_rgba(0,0,0,0.05)]">
                 <h3 class="text-xl font-bold text-gray-900 mb-6">Change Password</h3>
                 

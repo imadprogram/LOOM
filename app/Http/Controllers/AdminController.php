@@ -51,4 +51,30 @@ class AdminController extends Controller
 
         return back();
     }
+
+    public function annonces(){
+        $annonces = Annonce::latest()->paginate(10);
+
+        return view('adminAnnonces' , compact('annonces'));
+    }
+
+    public function annonceDeactivate($id){
+        $annonce = Annonce::findOrFail($id);
+
+        $annonce->update([
+            'status' => 'suspended'
+        ]);
+
+        return back();
+    }
+
+    public function annonceActivate($id){
+        $annonce = Annonce::findOrFail($id);
+
+        $annonce->update([
+            'status' => 'active'
+        ]);
+
+        return back();
+    }
 }

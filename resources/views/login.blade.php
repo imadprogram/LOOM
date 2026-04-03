@@ -4,13 +4,11 @@
 <div class="min-h-[80vh] flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
     <div class="max-w-md w-full bg-white rounded-3xl shadow-xl border border-gray-100 p-8 sm:p-10">
         
-        <!-- Header -->
         <div class="text-center mb-10">
             <h2 class="text-3xl font-black text-gray-900 tracking-tight">Welcome back</h2>
             <p class="text-gray-500 font-medium mt-2">Log in to your Loom account</p>
         </div>
 
-        <!-- Validation Errors -->
         @if ($errors->any())
             <div class="mb-6 bg-red-50 border-l-4 border-red-500 p-4 rounded-r-lg">
                 <div class="flex">
@@ -30,7 +28,6 @@
             </div>
         @endif
 
-        <!-- Form -->
         <form action="{{ route('submit.login') }}" method="POST" class="space-y-6">
             @csrf
             

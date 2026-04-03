@@ -2,7 +2,6 @@
 
 @section('content')
 <div class="relative bg-white overflow-hidden">
-    <!-- Decorative background blobs -->
     <div class="absolute inset-y-0 w-full h-full pointer-events-none" aria-hidden="true">
         <div class="absolute top-0 right-0 -mr-32 -mt-20 w-96 h-96 rounded-full bg-gradient-to-br from-[#52c6be]/20 to-blue-100 blur-3xl opacity-50"></div>
         <div class="absolute bottom-0 left-0 -ml-32 -mb-20 w-96 h-96 rounded-full bg-gradient-to-tr from-[#52c6be]/20 to-purple-100 blur-3xl opacity-50"></div>
@@ -10,24 +9,20 @@
 
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 pt-20 pb-24 sm:pt-32 sm:pb-32">
         <div class="text-center max-w-3xl mx-auto">
-            <!-- Badge -->
             <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#52c6be]/10 border border-[#52c6be]/20 text-[#52c6be] text-sm font-bold tracking-wide uppercase mb-8">
                 <span class="w-2 h-2 rounded-full bg-[#52c6be] animate-pulse"></span>
                 The Modern Marketplace
             </div>
             
-            <!-- Headline -->
             <h1 class="text-5xl md:text-7xl font-black text-gray-900 tracking-tighter mb-6 leading-tight">
                 Buy and Sell. <br>
                 <span class="text-transparent bg-clip-text bg-gradient-to-r from-[#52c6be] to-blue-500">Unbelievably fast.</span>
             </h1>
             
-            <!-- Subheadline -->
             <p class="text-lg md:text-xl text-gray-500 font-medium mb-10 leading-relaxed">
                 Loom safely connects local buyers and sellers. Discover amazing deals on electronics, fashion, and furniture, or turn your unused items into instant cash.
             </p>
             
-            <!-- Call to Action Buttons -->
             <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
                 <a href="/signup" class="w-full sm:w-auto px-8 py-4 bg-gray-900 hover:bg-gray-800 text-white font-bold rounded-full transition-all hover:-translate-y-1 shadow-xl hover:shadow-2xl">
                     Get Started Free
@@ -41,10 +36,8 @@
             </div>
         </div>
 
-        <!-- Features Section -->
         <div class="mt-32 grid grid-cols-1 md:grid-cols-3 gap-10 lg:gap-16">
             
-            <!-- Feature 1 -->
             <div class="bg-gray-50/50 rounded-3xl p-8 border border-gray-100 hover:shadow-lg transition-all group">
                 <div class="w-14 h-14 bg-blue-100 text-blue-600 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-7 h-7">
@@ -55,7 +48,6 @@
                 <p class="text-gray-500 font-medium">Post your item in less than 60 seconds. Our platform organizes it neatly into categories for thousands of local buyers to browse.</p>
             </div>
 
-            <!-- Feature 2 -->
             <div class="bg-gray-50/50 rounded-3xl p-8 border border-gray-100 hover:shadow-lg transition-all group">
                 <div class="w-14 h-14 bg-[#52c6be]/20 text-[#52c6be] rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-7 h-7">
@@ -66,7 +58,6 @@
                 <p class="text-gray-500 font-medium">Negotiate in real-time. Our built-in lightning-fast chat system means you never have to give out your personal phone number.</p>
             </div>
 
-            <!-- Feature 3 -->
             <div class="bg-gray-50/50 rounded-3xl p-8 border border-gray-100 hover:shadow-lg transition-all group">
                 <div class="w-14 h-14 bg-purple-100 text-purple-600 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-7 h-7">

@@ -75,16 +75,15 @@ Route::middleware('admin')->group(function () {
 
     Route::get('/admin/dashboard', [AdminController::class , 'dashboard']);
 
-    Route::get('/admin/annonces' , function(){
-        return view('adminAnnonces');
-    });
 
     Route::get('/admin/users' , [AdminController::class , 'users']);
 
     Route::put('/admin/users/ban/{id}' , [AdminController::class , 'ban'])->name('ban.user');
     Route::put('/admin/users/unban/{id}' , [AdminController::class , 'unban'])->name('unban.user');
 
-
+    Route::get('/admin/annonces' , [AdminController::class , 'annonces']);
+    Route::patch('/admin/annonces/deactivate/{id}' , [AdminController::class , 'annonceDeactivate'])->name('deactivate.annonce');
+    Route::patch('/admin/annonces/activate/{id}' , [AdminController::class , 'annonceActivate'])->name('activate.annonce');
 
     Route::get('/admin/reports' , function(){
         return view('adminReports');

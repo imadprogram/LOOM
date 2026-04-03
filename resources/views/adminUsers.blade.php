@@ -1,7 +1,6 @@
 @extends('layouts.appAdmin')
 
 @section('content')
-<!-- Header -->
 <div class="mb-8 flex justify-between items-center">
     <div>
         <h1 class="text-3xl font-black text-gray-900 tracking-tight">Manage Users</h1>
@@ -9,7 +8,6 @@
     </div>
 </div>
 
-<!-- Users Table -->
 <div class="bg-white rounded-3xl border border-gray-100 shadow-sm overflow-hidden flex flex-col">
     <div class="flex-1 p-0 overflow-x-auto">
         <table class="w-full text-left border-collapse">

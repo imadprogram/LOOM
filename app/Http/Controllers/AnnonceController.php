@@ -61,6 +61,10 @@ class AnnonceController extends Controller
     public function markAsActive($id){
         $annonce = Annonce::findOrFail($id);
 
+        if($annonce->status == "suspended"){
+            return back()->with('error' , 'your product is suspended you Can NOT activate it!');
+        }
+
         $annonce->update([
             'status' => 'active'
         ]);
