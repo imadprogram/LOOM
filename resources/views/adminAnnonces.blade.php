@@ -77,7 +77,7 @@
                         @endif
 
                         <!-- Delete Permanently -->
-                        <form  class="inline" onsubmit="return confirm('WARNING: This will permanently delete the listing. Proceed?')">
+                        <form id="delete-form-{{ $annonce->id }}" action="{{ route('delete.annonce' , $annonce->id) }}" method="POST" class="inline">
                             @csrf @method('DELETE')
                             <button class="text-gray-400 hover:text-gray-600 p-2 rounded-xl hover:bg-gray-100 transition-all">
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-5 h-5">
@@ -99,4 +99,32 @@
 <div class="mt-6">
     {{ $annonces->links() }}
 </div>
+
+<script>
+    function confirmDelete(id) {
+        Swal.fire({
+            title: 'Delete this listing?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#ef4444',
+            cancelButtonColor: '#94a3b8',
+            confirmButtonText: 'Yes, delete it!',
+            cancelButtonText: 'Cancel',
+            borderRadius: '24px', 
+            background: '#ffffff',
+            customClass: {
+                popup: 'rounded-3xl',
+                confirmButton: 'rounded-xl px-4 py-2 font-bold',
+                cancelButton: 'rounded-xl px-4 py-2 font-bold'
+            }
+        }).then((result) => {
+            if (result.isConfirmed) {
+                // Submit the specific form for that annonce ID
+                document.getElementById('delete-form-' + id).submit();
+            }
+        })
+    }
+</script>
+
 @endsection

@@ -84,6 +84,7 @@ Route::middleware('admin')->group(function () {
     Route::get('/admin/annonces' , [AdminController::class , 'annonces']);
     Route::patch('/admin/annonces/deactivate/{id}' , [AdminController::class , 'annonceDeactivate'])->name('deactivate.annonce');
     Route::patch('/admin/annonces/activate/{id}' , [AdminController::class , 'annonceActivate'])->name('activate.annonce');
+    Route::delete('/admin/annonces/delete/{id}' , [AdminController::class , 'annonceDelete'])->name('delete.annonce');
 
     Route::get('/admin/reports' , function(){
         return view('adminReports');

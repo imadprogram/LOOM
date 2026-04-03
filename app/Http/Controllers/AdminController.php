@@ -77,4 +77,12 @@ class AdminController extends Controller
 
         return back();
     }
+
+    public function annonceDelete($id){
+        $annonce = Annonce::findOrFail($id);
+
+        $annonce->delete();
+
+        return back();
+    }
 }
