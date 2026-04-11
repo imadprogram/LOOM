@@ -8,6 +8,7 @@ use App\Models\Annonce;
 use App\Http\Controllers\BoostController;
 use App\Http\Controllers\MessageController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\ReportController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -68,7 +69,14 @@ Route::middleware('auth' , 'banned')->group(function () {
 
     Route::get('/messages', [MessageController::class, 'index'])->name('messages.index');
     Route::post('/messages' , [MessageController::class, 'store'])->name('messages.store');
+    
+    
+    Route::post('/reports/{id}' , [ReportController::class , 'store'])->name('report.product');
 });
+
+
+
+
 
 
 Route::middleware('admin')->group(function () {
@@ -89,6 +97,7 @@ Route::middleware('admin')->group(function () {
     Route::get('/admin/reports' , function(){
         return view('adminReports');
     });
+
 });
 
 
