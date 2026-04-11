@@ -94,9 +94,7 @@ Route::middleware('admin')->group(function () {
     Route::patch('/admin/annonces/activate/{id}' , [AdminController::class , 'annonceActivate'])->name('activate.annonce');
     Route::delete('/admin/annonces/delete/{id}' , [AdminController::class , 'annonceDelete'])->name('delete.annonce');
 
-    Route::get('/admin/reports' , function(){
-        return view('adminReports');
-    });
+    Route::get('/admin/reports' , [AdminController::class , 'reports']);
 
 });
 

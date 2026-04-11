@@ -87,8 +87,8 @@
 
                     @if (auth()->id() !== $annonce->user_id)
                         <button id="report-button"
-                                class="flex-1 flex justify-center items-center h-14 bg-red-500 hover:bg-red-600 shadow-lg shadow-red-500/20 rounded-full text-white font-bold text-lg transition-all hover:-translate-y-0.5"
-                                onclick="showReportForm()">
+                            class="flex-1 flex justify-center items-center h-14 bg-red-500 hover:bg-red-600 shadow-lg shadow-red-500/20 rounded-full text-white font-bold text-lg transition-all hover:-translate-y-0.5"
+                            onclick="showReportForm()">
                             Report Product
                         </button>
                     @endif
@@ -125,14 +125,12 @@
                                     d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.006 5.404.434c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.434 2.082-5.005Z"
                                     clip-rule="evenodd" />
                             </svg>
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
-                                class="w-4 h-4">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-4 h-4">
                                 <path fill-rule="evenodd"
                                     d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.006 5.404.434c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.434 2.082-5.005Z"
                                     clip-rule="evenodd" />
                             </svg>
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
-                                class="w-4 h-4">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-4 h-4">
                                 <path fill-rule="evenodd"
                                     d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.006 5.404.434c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.434 2.082-5.005Z"
                                     clip-rule="evenodd" />
@@ -148,12 +146,15 @@
         <dialog id="reportForm" class="modal">
             <div class="modal-box bg-white rounded-3xl p-8">
                 <h3 class="font-black text-2xl mb-4">Report listing</h3>
-                <form action="{{ route('report.product' , $annonce->id) }}" method="POST" class="mt-6">
+                <form action="{{ route('report.product', $annonce->id) }}" method="POST" class="mt-6">
                     @csrf
                     <div class="mb-4">
                         <label for="reason" class="block text-gray-700 font-bold mb-2">Reason for Reporting:</label>
-                        <textarea id="reason" name="reason" rows="4" required
+                        <textarea id="reason" name="reason" rows="4" required maxlength="1000"
                             class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-[#52c6be]/50"></textarea>
+                        @error('reason')
+                            <p class="text-red-500 text-xs font-bold mt-1">{{ $message }}</p>
+                        @enderror
                     </div>
                     <button type="submit"
                         class="px-6 py-2 bg-red-500 hover:bg-red-600 text-white font-bold rounded-md transition-colors">
@@ -161,14 +162,21 @@
                     </button>
                 </form>
             </div>
-    </dialog>
-
+            {{-- u can't see it cuz this form daisyui when clickin outside the modal it closes --}}
+            <form method="dialog" class="modal-backdrop">
+                <button>close</button>
+            </form>
+        </dialog>
 
         <script>
             function showReportForm() {
                 // daisyUi way to show a dialog
                 document.getElementById('reportForm').showModal()
             }
+
+            @if ($errors->has('reason'))
+                showReportForm()
+            @endif
         </script>
     </div>
 @endsection

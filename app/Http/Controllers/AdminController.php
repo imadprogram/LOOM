@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Annonce;
+use App\Models\Report;
 
 class AdminController extends Controller
 {
@@ -84,5 +85,11 @@ class AdminController extends Controller
         $annonce->delete();
 
         return back();
+    }
+
+    public function reports(){
+        $reports = Report::latest()->paginate(10);
+
+        return view('adminReports' , compact('reports'));
     }
 }
