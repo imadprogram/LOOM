@@ -95,6 +95,7 @@ Route::middleware('admin')->group(function () {
     Route::delete('/admin/annonces/delete/{id}' , [AdminController::class , 'annonceDelete'])->name('delete.annonce');
 
     Route::get('/admin/reports' , [AdminController::class , 'reports']);
+    Route::patch('/admin/reports/{id}' , [AdminController::class , 'resolve'])->name('resolve.report');
 
 });
 

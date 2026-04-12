@@ -92,4 +92,14 @@ class AdminController extends Controller
 
         return view('adminReports' , compact('reports'));
     }
+
+    public function resolve($id) {
+        $report = Report::findOrFail($id);
+
+        $report->update([
+            'status' => 'resolved'
+        ]);
+
+        return back();
+    }
 }

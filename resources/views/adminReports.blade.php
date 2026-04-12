@@ -25,7 +25,8 @@
                             </td>
                             <td class="p-4">
                                 <p class="font-bold text-[#52c6be]">{{ $report->annonce->title }}</p>
-                                <p class="text-xs text-gray-400 underline cursor-pointer">View Listing</p>
+                                <a href="{{ route('product.details', $report->annonce->id) }}"
+                                    class="text-xs text-gray-400 underline cursor-pointer">View Listing</a>
                             </td>
                             <td class="p-4">
                                 <p title="{{ $report->reason }}" class="truncate max-w-[200px] cursor-pointer">
@@ -35,22 +36,22 @@
                             <td class="p-4">
                                 <!-- Red for Pending, Green for Resolved -->
                                 <span
-                                    class="px-3 py-1 bg-red-100 text-red-600 rounded-full text-xs font-bold uppercase transition-colors">
+                                    class="px-3 py-1 {{ $report->status == 'pending' ? 'bg-red-100 text-red-600' : 'bg-green-100 text-green-600' }} rounded-full text-xs font-bold uppercase transition-colors">
                                     {{ $report->status }}
                                 </span>
                             </td>
                             <td class="p-4 text-right">
                                 <!-- Button to update the Status from Pending -> Resolved -->
-                                <form action="#" method="POST">
-                                    @csrf
-                                    @method('PATCH')
-                                    @if ($report->status == 'pending')
+                                @if ($report->status == 'pending')
+                                    <form action="{{ route('resolve.report', $report->id) }}" method="POST">
+                                        @csrf
+                                        @method('PATCH')
                                         <button type="submit"
                                             class="bg-[#52c6be] text-white px-4 py-2 rounded-xl text-sm font-bold shadow-sm hover:scale-105 transition-transform">
                                             Mark as Resolved
                                         </button>
-                                    @endif
-                                </form>
+                                    </form>
+                                @endif
                             </td>
                         </tr>
                     @empty
