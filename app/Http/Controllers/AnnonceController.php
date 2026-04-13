@@ -2,22 +2,23 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\Annonce;
-use App\Models\Image;
 use App\Models\Category;
+use App\Models\Image;
+use Illuminate\Http\Request;
 
 class AnnonceController extends Controller
 {
-    public function publish(Request $request) {
+    public function publish(Request $request)
+    {
         $validated = $request->validate([
             'title' => ['required', 'string', 'max:255'],
             'price' => ['required', 'numeric', 'min:0'],
             'description' => ['required', 'string'],
             'location' => ['required', 'string', 'max:255'],
             'category_id' => ['required', 'exists:categories,id'],
-            'images' => ['required', 'array' , 'min:1'],
-            'images.*' => ['image' , 'max:10240'],
+            'images' => ['required', 'array', 'min:1'],
+            'images.*' => ['image', 'mimes:jpeg,png,jpg,gif,svg,webp,avif', 'max:10240'],
         ]);
 
         $annonce = Annonce::create([
@@ -30,54 +31,55 @@ class AnnonceController extends Controller
         ]);
 
         if ($request->hasFile('images')) {
-            foreach($request->file('images') as $file) {
+            foreach ($request->file('images') as $file) {
                 $path = $file->store('annonces', 'public');
-                
+
                 Image::create([
                     'annonce_id' => $annonce->id,
                     'file_path' => $path,
                 ]);
             }
-            
+
         }
 
         return redirect('/home');
     }
 
-
-    public function info($id){
+    public function info($id)
+    {
         $annonce = Annonce::findOrFail($id);
 
         return view('product', compact('annonce'));
     }
 
-
-    public function markAsSold($id){
+    public function markAsSold($id)
+    {
         $annonce = Annonce::findOrFail($id);
 
         $annonce->update([
-            'status' => 'sold'
+            'status' => 'sold',
         ]);
 
         return back();
     }
 
-    public function markAsActive($id){
+    public function markAsActive($id)
+    {
         $annonce = Annonce::findOrFail($id);
 
-        if($annonce->status == "suspended"){
-            return back()->with('error' , 'your product is suspended you Can NOT activate it!');
+        if ($annonce->status == 'suspended') {
+            return back()->with('error', 'your product is suspended you Can NOT activate it!');
         }
 
         $annonce->update([
-            'status' => 'active'
+            'status' => 'active',
         ]);
-        
+
         return back();
     }
 
-
-    public function delete($id){
+    public function delete($id)
+    {
         $annonce = Annonce::findOrFail($id);
 
         $annonce->delete();
@@ -85,14 +87,16 @@ class AnnonceController extends Controller
         return back();
     }
 
-    public function edit($id) {
+    public function edit($id)
+    {
         $annonce = Annonce::findOrFail($id);
         $categories = Category::all();
 
         return view('edit', compact('annonce', 'categories'));
     }
 
-    public function update(Request $request, $id) {
+    public function update(Request $request, $id)
+    {
         $annonce = Annonce::findOrFail($id);
 
         $validated = $request->validate([

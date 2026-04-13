@@ -40,8 +40,14 @@
 
                         <!-- Previews will be injected here by Javascript -->
                     </div>
-                    <p class="text-xs text-gray-400 mt-3 font-medium">Tip: Select multiple photos to show different angles
-                        of your product.</p>
+                    <p class="text-xs text-gray-400 mt-3 font-medium flex items-center gap-1.5">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2"
+                            stroke="currentColor" class="w-3.5 h-3.5 text-[#52c6be]">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M11.25 11.25l.041-.02a.75.75 0 011.063.852l-.708 2.836a.75.75 0 001.063.853l.041-.021M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9-3.75h.008v.008H12V8.25z" />
+                        </svg>
+                        Tip: Select multiple photos. Each image must be under 10MB (JPEG, PNG, AVIF).
+                    </p>
                 </div>
 
                 <!-- Basics -->
@@ -111,7 +117,22 @@
 <script>
     function previewImages(event) {
         const grid = document.getElementById('preview-grid');
-        const files = event.target.files;
+        const input = event.target;
+        const files = input.files;
+
+        // Check for the 5 image limit
+        if (files.length > 5) {
+            Toastify({
+                text: "You can only upload a maximum of 5 images.",
+                style: {
+                    background: "#ef4444"
+                }
+            }).showToast();
+
+            input.value = ""; // Clear the selection
+            grid.querySelectorAll('.preview-item').forEach(item => item.remove()); // Clear previews
+            return;
+        }
 
         // Remove only previous previews, keeping the upload button
         const existingPreviews = grid.querySelectorAll('.preview-item');
@@ -122,24 +143,14 @@
                 const reader = new FileReader();
 
                 reader.onload = function(e) {
-                    // Create a container for the preview square
                     const div = document.createElement('div');
                     div.className =
                         'preview-item relative aspect-square rounded-2xl overflow-hidden border border-gray-100 shadow-sm';
 
-                    // Set the image
                     div.innerHTML = `
                     <img src="${e.target.result}" class="w-full h-full object-cover">
-                    <div class="absolute inset-0 bg-black/10 opacity-0 hover:opacity-100 transition-opacity flex items-center justify-center">
-                        <div class="bg-white/90 p-1.5 rounded-full shadow-lg">
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" class="w-4 h-4 text-red-500">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
-                            </svg>
-                        </div>
-                    </div>
                 `;
 
-                    // Add it to the grid BEFORE the upload button
                     grid.insertBefore(div, grid.lastElementChild);
                 }
 
@@ -147,4 +158,15 @@
             });
         }
     }
+
+    @if ($errors->any())
+        @foreach ($errors->all() as $error)
+            Toastify({
+                text: "{{ $error }}",
+                style: {
+                    background: "#ef4444"
+                }
+            }).showToast();
+        @endforeach
+    @endif
 </script>
