@@ -30,7 +30,7 @@ Route::get('/banned', function() {
 Route::middleware('auth' , 'banned')->group(function () {
     
     Route::get('/home' , function(){
-        $annonces = Annonce::with(['user', 'image'])->orderByRaw('boosted_until > NOW() DESC')->latest()->get();
+        $annonces = Annonce::with(['user', 'images'])->orderByRaw('boosted_until > NOW() DESC')->latest()->get();
         return view('home', compact('annonces'));
     });
 

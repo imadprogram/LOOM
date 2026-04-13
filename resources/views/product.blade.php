@@ -14,20 +14,26 @@
 
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20">
             <!-- Product Image Section -->
-            <div
-                class="relative group rounded-3xl overflow-hidden shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-gray-100 bg-white md:p-4 aspect-square">
-                <div class="w-full h-full rounded-[1.5rem] overflow-hidden relative">
-                    <img src="{{ asset('storage/' . $annonce->image->file_path) }}" alt="Product Name"
-                        class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
-                    <!-- Favorite Button -->
-                    <button
-                        class="absolute top-6 right-6 bg-white/90 backdrop-blur-md p-3.5 rounded-full shadow-lg text-gray-400 hover:text-red-500 transition-colors">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2"
-                            stroke="currentColor" class="w-7 h-7">
-                            <path stroke-linecap="round" stroke-linejoin="round"
-                                d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z" />
-                        </svg>
-                    </button>
+            <div class="flex flex-col gap-6">
+                <!-- Main Image Container -->
+                <div
+                    class="relative group rounded-3xl overflow-hidden shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-gray-100 bg-white md:p-4 aspect-square">
+                    <div class="w-full h-full rounded-[1.5rem] overflow-hidden relative">
+                        <img id="mainImage" src="{{ asset('storage/' . $annonce->images->first()->file_path) }}"
+                            alt="{{ $annonce->title }}"
+                            class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
+                    </div>
+                </div>
+
+                <!-- Thumbnails Gallery -->
+                <div class="flex gap-4 overflow-x-auto pb-2 scrollbar-hide">
+                    @foreach ($annonce->images as $image)
+                        <div
+                            class="w-24 h-24 flex-shrink-0 rounded-2xl overflow-hidden border-2 border-transparent hover:border-[#52c6be] transition-all cursor-pointer shadow-sm active:scale-95">
+                            <img src="{{ asset('storage/' . $image->file_path) }}" onclick="changeMainImage(this.src)"
+                                class="w-full h-full object-cover" alt="Thumbnail">
+                        </div>
+                    @endforeach
                 </div>
             </div>
 
@@ -177,6 +183,12 @@
             @if ($errors->has('reason'))
                 showReportForm()
             @endif
+
+
+            // script for changing display on the main image
+            function changeMainImage(newSrc) {
+                document.getElementById('mainImage').src = newSrc;
+            }
         </script>
     </div>
 @endsection

@@ -16,7 +16,8 @@ class AnnonceController extends Controller
             'description' => ['required', 'string'],
             'location' => ['required', 'string', 'max:255'],
             'category_id' => ['required', 'exists:categories,id'],
-            'image' => ['required', 'image', 'max:10240'],
+            'images' => ['required', 'array' , 'min:1'],
+            'images.*' => ['image' , 'max:10240'],
         ]);
 
         $annonce = Annonce::create([
@@ -28,13 +29,16 @@ class AnnonceController extends Controller
             'category_id' => $validated['category_id'],
         ]);
 
-        if ($request->hasFile('image')) {
-            $path = $request->file('image')->store('annonces', 'public');
+        if ($request->hasFile('images')) {
+            foreach($request->file('images') as $file) {
+                $path = $file->store('annonces', 'public');
+                
+                Image::create([
+                    'annonce_id' => $annonce->id,
+                    'file_path' => $path,
+                ]);
+            }
             
-            Image::create([
-                'annonce_id' => $annonce->id,
-                'file_path' => $path,
-            ]);
         }
 
         return redirect('/home');
