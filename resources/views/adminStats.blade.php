@@ -76,7 +76,7 @@
                 <a href="/admin/users" class="text-sm text-[#52c6be] font-bold hover:underline">View All Users</a>
             </div>
             <div class="flex-1 p-0 overflow-x-auto">
-                <table class="w-full text-left border-collapse">
+                <table class="w-full text-left border-collapse min-w-[500px]">
                     <tbody>
                         @forelse ($newestMembers as $member)
                             <tr class="hover:bg-gray-50 border-b border-gray-50 last:border-none transition">
@@ -108,13 +108,13 @@
                 <a href="/admin/annonces" class="text-sm text-[#52c6be] font-bold hover:underline">View All Annonces</a>
             </div>
             <div class="flex-1 p-0 overflow-x-auto">
-                <table class="w-full text-left border-collapse">
+                <table class="w-full text-left border-collapse min-w-[500px]">
                     <tbody>
                         @forelse ($newestAnnonces as $annonce)
                             <tr class="hover:bg-gray-50 border-b border-gray-50 last:border-none transition">
                                 <td class="p-4 py-5 w-16">
-                                    @if ($annonce->image)
-                                        <img src="{{ asset('storage/' . $annonce->image->file_path) }}"
+                                    @if ($annonce->images->isNotEmpty())
+                                        <img src="{{ asset('storage/' . $annonce->images->first()->file_path) }}"
                                             alt="{{ $annonce->title }}"
                                             class="w-10 h-10 rounded-xl object-cover shadow-sm">
                                     @else

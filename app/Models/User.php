@@ -6,6 +6,8 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Cache;
 
 class User extends Authenticatable
 {
@@ -46,5 +48,19 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+
+    /**
+     * Check if the user is currently online based on sessions table.
+     * A user is considered online if they have a session with activity in the last 5 minutes.
+     */
+    public function isOnline(): bool
+    {
+        return Cache::remember('user-online-' . $this->id, 60, function () {
+            return DB::table('sessions')
+                ->where('user_id', $this->id)
+                ->where('last_activity', '>', now()->subMinutes(5)->timestamp)
+                ->exists();
+        });
     }
 }

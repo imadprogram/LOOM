@@ -4,8 +4,8 @@
     <div class="p-6">
         <h1 class="text-3xl font-black mb-6">User Reports</h1>
 
-        <div class="bg-white rounded-3xl border border-gray-100 shadow-sm overflow-hidden">
-            <table class="w-full text-left">
+        <div class="bg-white rounded-3xl border border-gray-100 shadow-sm overflow-x-auto">
+            <table class="w-full text-left min-w-[600px]">
                 <thead class="bg-gray-50 border-b border-gray-100">
                     <tr>
                         <th class="p-4 font-bold text-gray-600">Reported By</th>

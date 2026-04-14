@@ -20,12 +20,13 @@ class MessageController extends Controller
 
         $contacts = User::whereIn('id', $contactIds)->get();
 
-        // Calculate unread messages for each contact on the sidebar
+        // Calculate unread messages and online status for each contact on the sidebar
         foreach ($contacts as $contact) {
             $contact->unread_count = Message::where('sender_id', $contact->id)
                                             ->where('receiver_id', $userId)
                                             ->where('is_read', false)
                                             ->count();
+            $contact->is_online = $contact->isOnline();
         }
 
         $activeContact = null;
@@ -34,6 +35,7 @@ class MessageController extends Controller
 
         if ($request->has('user_id')) {
             $activeContact = User::findOrFail($request->user_id);
+            $activeContact->is_online = $activeContact->isOnline();
             
             // Mark all messages FROM this active contact TO us as read!
             Message::where('sender_id', $activeContact->id)

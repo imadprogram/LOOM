@@ -140,6 +140,12 @@
 
         if (files) {
             Array.from(files).forEach(file => {
+                if(file.size > 10 * 1024 * 1024){
+                    Toastify({ text: `File ${file.name} is too large!`}).showToast();
+
+                    input.value = "";
+                    return;
+                }
                 const reader = new FileReader();
 
                 reader.onload = function(e) {

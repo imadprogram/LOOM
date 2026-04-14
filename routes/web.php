@@ -9,6 +9,9 @@ use App\Http\Controllers\BoostController;
 use App\Http\Controllers\MessageController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ReportController;
+use App\Http\Controllers\SearchController;
+
+
 
 Route::get('/', function () {
     return view('welcome');
@@ -39,7 +42,7 @@ Route::middleware('auth' , 'banned')->group(function () {
     });
 
     Route::get('/my-listings' , function(){
-        $listings = Annonce::with(['user' , 'image'])->where('user_id' , auth()->id())->latest()->get();
+        $listings = Annonce::with(['user' , 'images'])->where('user_id' , auth()->id())->latest()->get();
         return view('listings' , compact('listings'));
     });
 
@@ -72,6 +75,8 @@ Route::middleware('auth' , 'banned')->group(function () {
     
     
     Route::post('/reports/{id}' , [ReportController::class , 'store'])->name('report.product');
+
+    Route::get('/search' , [SearchController::class , 'search'])->name('search');
 });
 
 

@@ -11,6 +11,8 @@
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     <title>Loom</title>
 </head>
@@ -32,10 +34,10 @@
         <a href="/messages"
             class="fixed bottom-8 right-8 bg-[#52c6be] text-white p-4 rounded-full shadow-lg shadow-[#52c6be]/30 hover:-translate-y-1 hover:shadow-[0_10px_20px_-5px_rgba(82,198,190,0.4)] transition-all z-50 group">
             <div class="relative">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2"
-                    stroke="currentColor" class="w-7 h-7">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                    stroke="currentColor" class="w-6 h-6">
                     <path stroke-linecap="round" stroke-linejoin="round"
-                        d="M2.25 12.76c0 1.6 1.123 2.994 2.707 3.227 1.087.16 2.185.283 3.293.369V21l4.076-4.076a1.526 1.526 0 011.037-.443 48.282 48.282 0 005.68-.494h.02a3.002 3.002 0 002.818-2.885c.024-.269.048-.538.07-.807.027-.33.052-.656.074-.984.093-1.396.14-2.81.14-4.25s-.047-2.854-.14-4.25c-.022-.328-.047-.654-.074-.984a51.642 51.642 0 00-.07-.807A3.002 3.002 0 0018.068 2.5h-.02a48.282 48.282 0 00-5.68-.494 1.526 1.526 0 01-1.037.443L7.255 6.526v2.96c-1.108.086-2.206.209-3.293.369-1.584.233-2.707 1.626-2.707 3.228v.677z" />
+                        d="M8.625 12a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm0 0H8.25m4.125 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm0 0H12m4.125 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm0 0h-.375M21 12c0 4.556-4.03 8.25-9 8.25a9.764 9.764 0 0 1-2.555-.337A5.972 5.972 0 0 1 5.41 20.97a5.969 5.969 0 0 1-.474-.065 4.48 4.48 0 0 0 .978-2.025c.09-.457-.133-.901-.467-1.226C3.93 16.178 3 14.189 3 12c0-4.556 4.03-8.25 9-8.25s9 3.694 9 8.25Z" />
                 </svg>
                 <span id="unread-dot"
                     class="absolute -top-1 -right-1 w-3.5 h-3.5 bg-red-500 border-2 border-white rounded-full {{ $hasUnreadMessages ? '' : 'hidden' }}"></span>
@@ -54,27 +56,26 @@
                     }
                 }, 1000);
             });
-
         </script>
-        
 
-            @if (session('error') || session('status'))
-                <script>
-                            Toastify({
-                                text: "{{ session('error') ?? session('status') }}",
-                                duration: 4000,
-                                close: true,
-                                gravity: "top",
-                                position: "right",
-                                stopOnFocus: true,
-                                style: {
-                                    background: "{{ session('error') ? '#ef4444' : '#52c6be' }}",
-                                    borderRadius: "15px",
-                                    fontWeight: "bold",
-                                },
-                            }).showToast();
-                </script>
-            @endif
+
+        @if (session('error') || session('status'))
+            <script>
+                Toastify({
+                    text: "{{ session('error') ?? session('status') }}",
+                    duration: 4000,
+                    close: true,
+                    gravity: "top",
+                    position: "right",
+                    stopOnFocus: true,
+                    style: {
+                        background: "{{ session('error') ? '#ef4444' : '#52c6be' }}",
+                        borderRadius: "15px",
+                        fontWeight: "bold",
+                    },
+                }).showToast();
+            </script>
+        @endif
     @endauth
 </body>
 

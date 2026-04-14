@@ -27,7 +27,7 @@
             <div class="bg-white border border-gray-100 rounded-3xl p-4 md:p-6 shadow-[0_4px_20px_-4px_rgba(0,0,0,0.05)] flex flex-col md:flex-row items-center gap-6 hover:shadow-md transition-shadow">
                 <!-- Image -->
                 <div class="w-full md:w-32 h-32 rounded-2xl overflow-hidden flex-shrink-0 bg-gray-50">
-                    <img src="{{ asset('storage/' . $item->image->file_path) }}" class="w-full h-full object-cover">
+                    <img src="{{ asset('storage/' . $item->images->first()->file_path) }}" class="w-full h-full object-cover">
                 </div>
 
                 <!-- Info -->

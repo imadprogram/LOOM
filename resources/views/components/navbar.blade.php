@@ -7,22 +7,10 @@
         </svg>
         <h1 class="text-2xl font-black tracking-tighter text-gray-900">Loom</h1>
     </a>
+</div>
 
-    <div class="hidden md:flex flex-1 max-w-md mx-6">
-        <div class="relative w-full">
-            <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2"
-                    stroke="currentColor" class="w-5 h-5 text-gray-400">
-                    <path stroke-linecap="round" stroke-linejoin="round"
-                        d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
-                </svg>
-            </div>
-            <input type="text" placeholder="Search items..."
-                class="w-full pl-11 pr-4 py-2.5 rounded-full bg-gray-50 border border-gray-100 focus:border-[#52c6be] focus:ring-2 focus:ring-[#52c6be]/20 outline-none transition-all text-sm font-medium text-gray-700">
-        </div>
-    </div>
-
-    <div class="flex items-center gap-5">
+<div class="flex items-center gap-5">
+        <a href="{{ route('search') }}"><ion-icon name="search-outline" class="text-2xl"></ion-icon></a>
         @auth
             <a href="/sell"
                 class="bg-[#52c6be] hover:bg-[#3fad9e] text-white px-5 py-2.5 rounded-full font-bold text-sm transition-all shadow-sm hover:shadow-md hover:-translate-y-0.5 mr-2">
