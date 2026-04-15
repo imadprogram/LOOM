@@ -17,11 +17,11 @@
     <title>Loom</title>
 </head>
 
-<body class="h-screen justify-center items-center">
-    <header>
+<body class="bg-white">
+    <header class="fixed top-0 left-0 right-0 z-50">
         @include('components.navbar')
     </header>
-    <main>
+    <main class="pt-20">
         @yield('content')
     </main>
 

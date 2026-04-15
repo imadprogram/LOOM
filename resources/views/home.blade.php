@@ -14,9 +14,8 @@
             </div>
         </div>
 
-        <div class="h-[calc(100vh-200px)] overflow-y-auto pb-10 scrollbar-hide">
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-                @forelse($annonces as $annonce)
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+            @forelse($annonces as $annonce)
                     @if ($annonce->status === 'active')
                         <div
                             class="group bg-white rounded-3xl overflow-hidden shadow-[0_4px_20px_-4px_rgba(0,0,0,0.05)] border border-gray-100 hover:-translate-y-1 hover:shadow-[0_12px_30px_-4px_rgba(82,198,190,0.15)] transition-all duration-300">
@@ -58,8 +57,12 @@
                         <p class="text-gray-500 text-lg font-medium">No items found. Be the first to <a href="/sell"
                                 class="text-[#52c6be] hover:underline">sell something</a>!</p>
                     </div>
-                @endforelse
-            </div>
+            @endforelse
+        </div>
+
+        <!-- Pagination -->
+        <div class="mt-12 flex justify-center">
+            {{ $annonces->links() }}
         </div>
     </div>
 @endsection
