@@ -9,19 +9,30 @@ class SearchController extends Controller
 {
     public function search(Request $request) {
         $word = $request->input('q', '');
+        $categoryId = $request->input('category', '');
 
         $result = [];
+        $categories = \App\Models\Category::all();
 
-        if(!empty($word)){
-            $result = Annonce::where('status' , 'active')->where(function($query) use ($word) {
-                $query->where('title' , 'LIKE' , '%' . $word . '%')->orWhere('description' , 'LIKE' , '%' . $word . '%');
-            })
-            ->with(['user' , 'images' , 'category'])
-            ->orderByRaw('boosted_until > NOW() DESC')
-            ->latest()
-            ->paginate(12);
+        if(!empty($word) || !empty($categoryId)){
+            $query = Annonce::where('status' , 'active');
+
+            if(!empty($word)){
+                $query->where(function($q) use ($word) {
+                    $q->where('title' , 'LIKE' , '%' . $word . '%')->orWhere('description' , 'LIKE' , '%' . $word . '%');
+                });
+            }
+
+            if(!empty($categoryId)){
+                $query->where('category_id', $categoryId);
+            }
+
+            $result = $query->with(['user' , 'images' , 'category'])
+                ->orderByRaw('boosted_until > NOW() DESC')
+                ->latest()
+                ->paginate(12);
         }
 
-        return view('search' , ['annonces' => $result , 'query' => $word]);
+        return view('search' , ['annonces' => $result , 'query' => $word , 'categories' => $categories , 'selectedCategory' => $categoryId]);
     }
 }

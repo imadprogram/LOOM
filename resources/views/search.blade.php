@@ -9,7 +9,7 @@
             </h2>
             
             <!-- Search Input -->
-            <form method="GET" action="{{ route('search') }}" class="flex gap-2">
+            <form method="GET" action="{{ route('search') }}" class="flex gap-2 flex-wrap">
                 <input 
                     type="text" 
                     name="q" 
@@ -17,6 +17,20 @@
                     placeholder="Search by title or description..." 
                     class="flex-1 px-6 py-3 rounded-full border border-gray-300 focus:border-[#52c6be] focus:ring-2 focus:ring-[#52c6be]/20 outline-none transition-all text-gray-900"
                 >
+                
+                <!-- Category Filter -->
+                <select 
+                    name="category" 
+                    class="px-6 py-3 rounded-full border border-gray-300 focus:border-[#52c6be] focus:ring-2 focus:ring-[#52c6be]/20 outline-none transition-all text-gray-900 bg-white"
+                >
+                    <option value="">All Categories</option>
+                    @foreach($categories as $cat)
+                        <option value="{{ $cat->id }}" {{ $selectedCategory == $cat->id ? 'selected' : '' }}>
+                            {{ $cat->name }}
+                        </option>
+                    @endforeach
+                </select>
+
                 <button 
                     type="submit"
                     class="px-8 py-3 bg-[#52c6be] hover:bg-[#3fad9e] text-white font-bold rounded-full transition-all"
@@ -36,7 +50,7 @@
         </div>
 
         <!-- Results Grid -->
-        @if($query && $annonces && $annonces->count() > 0)
+        @if(($query || $selectedCategory) && $annonces && $annonces->count() > 0)
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
                 @foreach($annonces as $annonce)
                     <div class="group bg-white rounded-3xl overflow-hidden shadow-[0_4px_20px_-4px_rgba(0,0,0,0.05)] border border-gray-100 hover:-translate-y-1 hover:shadow-[0_12px_30px_-4px_rgba(82,198,190,0.15)] transition-all duration-300">
@@ -98,12 +112,12 @@
                 {{ $annonces->links() }}
             </div>
 
-        @elseif($query)
+        @elseif($query || $selectedCategory)
             <!-- No Results -->
             <div class="text-center py-20">
                 <div class="text-6xl mb-4">🔍</div>
                 <p class="text-gray-500 text-lg font-medium">
-                    No products found for "<span class="font-bold text-gray-900">{{ $query }}</span>"
+                    No products found
                 </p>
                 <p class="text-gray-400 text-sm mt-2">Try different keywords or browse <a href="/home" class="text-[#52c6be] hover:underline font-semibold">all items</a></p>
             </div>
