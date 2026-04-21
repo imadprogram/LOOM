@@ -83,11 +83,13 @@
                                 Message Seller
                             </a>
 
-                            <button id="report-button"
-                                class="flex-1 flex justify-center items-center h-14 bg-red-500 hover:bg-red-600 shadow-lg shadow-red-500/20 rounded-full text-white font-bold text-lg transition-all hover:-translate-y-0.5"
-                                onclick="showReportForm()">
-                                Report Product
-                            </button>
+                            @if (!auth()->user()->is_admin)
+                                <button id="report-button"
+                                    class="flex-1 flex justify-center items-center h-14 bg-red-500 hover:bg-red-600 shadow-lg shadow-red-500/20 rounded-full text-white font-bold text-lg transition-all hover:-translate-y-0.5"
+                                    onclick="showReportForm()">
+                                    Report Product
+                                </button>
+                            @endif
                         @endif
                     </div>
 

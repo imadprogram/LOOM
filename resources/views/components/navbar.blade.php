@@ -1,5 +1,5 @@
 <nav
-    class="w-full bg-white/80 backdrop-blur-md border-b border-gray-100 flex justify-between items-center px-6 lg:px-10 py-4 sticky top-0 z-50">
+    class="w-full bg-white/80 backdrop-blur-md border-b border-gray-100 flex justify-between items-center px-4 md:px-6 lg:px-10 py-4 sticky top-0 z-50">
     <a href="/home" class="flex items-center gap-2 hover:opacity-80 transition-opacity">
         <svg fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" class="w-8 h-8 text-[#52c6be]">
             <path stroke-linecap="round" stroke-linejoin="round"
@@ -7,13 +7,12 @@
         </svg>
         <h1 class="text-2xl font-black tracking-tighter text-gray-900">Loom</h1>
     </a>
-</div>
 
-<div class="flex items-center gap-5">
+    <!-- Desktop Navigation -->
+    <div class="hidden md:flex items-center gap-5">
         @auth
-            <a href="{{ route('search') }}"><ion-icon name="search-outline" class="text-2xl"></ion-icon></a>
-        @endauth
-        @auth
+            <a href="{{ route('search') }}" class="text-gray-600 hover:text-[#52c6be] transition-colors"><ion-icon
+                    name="search-outline" class="text-2xl"></ion-icon></a>
             <a href="/sell"
                 class="bg-[#52c6be] hover:bg-[#3fad9e] text-white px-5 py-2.5 rounded-full font-bold text-sm transition-all shadow-sm hover:shadow-md hover:-translate-y-0.5 mr-2">
                 Sell an item
@@ -33,6 +32,7 @@
                     </div>
                 </button>
 
+                <!-- Desktop User Dropdown -->
                 <div id="user-dropdown"
                     class="absolute right-0 mt-3 w-56 bg-white rounded-2xl shadow-xl border border-gray-100 py-2 z-50 transition-all hidden">
                     <div class="px-4 py-3 border-b border-gray-50">
@@ -87,31 +87,151 @@
                     </div>
                 </div>
             </div>
-
-            <script>
-                function toggleDropdown() {
-                    const menu = document.getElementById('user-dropdown');
-                    menu.classList.toggle('hidden');
-                }
-
-                // Close dropdown if clicking outside
-                window.onclick = function(event) {
-                    if (!event.target.closest('button')) {
-                        const menu = document.getElementById('user-dropdown');
-                        if (!menu.classList.contains('hidden')) {
-                            menu.classList.add('hidden');
-                        }
-                    }
-                }
-            </script>
         @else
-            <a href="{{ route('login') }}" class="text-sm font-bold text-gray-600 hover:text-gray-900 transition-colors">
-                Log in
-            </a>
+            <a href="{{ route('login') }}" class="text-sm font-bold text-gray-600 hover:text-gray-900 transition-colors">Log
+                in</a>
             <a href="{{ route('signup') }}"
-                class="bg-[#52c6be] hover:bg-[#3fad9e] text-white px-5 py-2.5 rounded-full font-bold text-sm transition-all shadow-sm hover:shadow-md">
-                Get Started
-            </a>
+                class="bg-[#52c6be] hover:bg-[#3fad9e] text-white px-5 py-2.5 rounded-full font-bold text-sm transition-all shadow-sm hover:shadow-md">Get
+                Started</a>
+        @endauth
+    </div>
+
+    <!-- Mobile Menu Toggle Button -->
+    <div class="md:hidden flex items-center gap-4">
+        @auth
+            <a href="{{ route('search') }}"
+                class="text-gray-600 hover:text-[#52c6be] transition-colors flex items-center"><ion-icon
+                    name="search-outline" class="text-2xl"></ion-icon></a>
+        @endauth
+        <button onclick="toggleMobileMenu()"
+            class="text-gray-700 hover:text-[#52c6be] transition-colors focus:outline-none p-1">
+            <svg id="hamburger-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                stroke-width="2.5" stroke="currentColor" class="w-7 h-7">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+            </svg>
+        </button>
+    </div>
+
+    <!-- Mobile Dropdown Menu -->
+    <div id="mobile-menu"
+        class="absolute top-[100%] left-0 w-full bg-white border-b border-gray-100 shadow-xl hidden flex-col py-4 px-6 md:hidden">
+        @auth
+            <div class="flex items-center gap-3 mb-6 pb-4 border-b border-gray-50">
+                <div class="w-12 h-12 rounded-full bg-[#52c6be]/10 text-[#52c6be] flex items-center justify-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2"
+                        stroke="currentColor" class="w-6 h-6">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                            d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" />
+                    </svg>
+                </div>
+                <div>
+                    <p class="font-bold text-gray-900">{{ auth()->user()->first_name }} {{ auth()->user()->last_name }}</p>
+                    <p class="text-xs text-gray-500">{{ auth()->user()->email }}</p>
+                </div>
+            </div>
+
+            <nav class="flex flex-col gap-2">
+                <a href="/sell"
+                    class="flex items-center justify-center bg-[#52c6be] text-white px-5 py-3 rounded-full font-bold text-sm mb-4 shadow-sm">
+                    Sell an item
+                </a>
+
+                <a href="/profile"
+                    class="flex items-center gap-3 py-3 text-sm font-bold text-gray-700 hover:text-[#52c6be]">
+                    <svg fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-5 h-5">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                            d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" />
+                    </svg>
+                    Profile Settings
+                </a>
+
+                <a href="/my-listings"
+                    class="flex items-center gap-3 py-3 text-sm font-bold text-gray-700 hover:text-[#52c6be]">
+                    <svg fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-5 h-5">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                            d="M8.25 6.75h12M8.25 12h12m-12 5.25h12M3.75 6.75h.007v.008H3.75V6.75zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zM3.75 12h.007v.008H3.75V12zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm-3.375 5.25h.007v.008H3.75v-.008zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z" />
+                    </svg>
+                    My Listings
+                </a>
+
+                @if (auth()->user()->is_admin)
+                    <a href="/admin/dashboard" class="flex items-center gap-3 py-3 text-sm font-bold text-[#52c6be]">
+                        <svg fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-5 h-5">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M10.5 6a7.5 7.5 0 107.5 7.5h-7.5V6z" />
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M13.5 10.5H21A7.5 7.5 0 0013.5 3v7.5z" />
+                        </svg>
+                        Admin Dashboard
+                    </a>
+                @endif
+
+                <form action="{{ route('logout') }}" method="POST" class="mt-4 pt-4 border-t border-gray-100">
+                    @csrf
+                    <button type="submit" class="flex items-center gap-3 w-full py-2 text-sm font-bold text-red-500">
+                        <svg fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-5 h-5">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M15.75 9V5.25A2.25 2.25 0 0013.5 3h-6a2.25 2.25 0 00-2.25 2.25v13.5A2.25 2.25 0 007.5 21h6a2.25 2.25 0 002.25-2.25V15M12 9l-3 3m0 0l3 3m-3-3h12.75" />
+                        </svg>
+                        Log out
+                    </button>
+                </form>
+            </nav>
+        @else
+            <div class="flex flex-col gap-4">
+                <a href="{{ route('login') }}"
+                    class="text-center font-bold text-gray-700 py-3 border border-gray-200 rounded-full hover:bg-gray-50">Log
+                    in</a>
+                <a href="{{ route('signup') }}"
+                    class="text-center font-bold text-white bg-[#52c6be] py-3 rounded-full hover:bg-[#3fad9e] shadow-md">Get
+                    Started</a>
+            </div>
         @endauth
     </div>
 </nav>
+
+<script>
+    function toggleDropdown() {
+        const menu = document.getElementById('user-dropdown');
+        menu.classList.toggle('hidden');
+    }
+
+    function toggleMobileMenu() {
+        const mobileMenu = document.getElementById('mobile-menu');
+        const icon = document.getElementById('hamburger-icon');
+
+        mobileMenu.classList.toggle('hidden');
+        mobileMenu.classList.toggle('flex');
+
+        // Toggle icon between hamburger and X
+        if (mobileMenu.classList.contains('hidden')) {
+            icon.innerHTML =
+                '<path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />';
+        } else {
+            icon.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />';
+        }
+    }
+
+    // Close dropdowns if clicking outside
+    window.onclick = function(event) {
+        // Desktop dropdown
+        if (!event.target.closest('button[onclick="toggleDropdown()"]')) {
+            const menu = document.getElementById('user-dropdown');
+            if (menu && !menu.classList.contains('hidden')) {
+                menu.classList.add('hidden');
+            }
+        }
+
+        // Mobile menu
+        if (!event.target.closest('nav')) {
+            const mobileMenu = document.getElementById('mobile-menu');
+            const icon = document.getElementById('hamburger-icon');
+            if (mobileMenu && !mobileMenu.classList.contains('hidden')) {
+                mobileMenu.classList.add('hidden');
+                mobileMenu.classList.remove('flex');
+                if (icon) icon.innerHTML =
+                    '<path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />';
+            }
+        }
+    }
+</script>
