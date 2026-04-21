@@ -333,6 +333,43 @@
                     });
                 });
             }
+
+            // 1. WebSocket Listener for Live Receiving
+            document.addEventListener("DOMContentLoaded", () => {
+                setTimeout(() => {
+                    if (window.Echo) {
+                        window.Echo.private(`messages.{{ auth()->id() }}`).listen('MessageSent', (e) => {
+                            // Only append if the incoming message is from the active contact we're chatting with
+                            if (e.message.sender_id == "{{ $activeContact->id }}") {
+                                const timeStr = new Date().toLocaleTimeString('en-GB', {
+                                    hour: '2-digit',
+                                    minute: '2-digit'
+                                });
+
+                                const incomingHtml = `
+                                <div class="flex justify-start mb-2 group animate-in fade-in slide-in-from-bottom-2 duration-300">
+                                    <div class="flex flex-col items-start max-w-[85%] sm:max-w-[70%]">
+                                        <div class="bg-white border border-gray-100 text-gray-800 px-4 py-3 rounded-2xl rounded-tl-none shadow-sm">
+                                            <p class="text-[13px] leading-relaxed font-medium">${e.message.content}</p>
+                                        </div>
+                                        <span class="text-[9px] font-bold text-gray-400 uppercase mt-1 ml-1">${timeStr}</span>
+                                    </div>
+                                </div>`;
+
+                                chatContainer.insertAdjacentHTML('beforeend', incomingHtml);
+                                chatContainer.lastElementChild.scrollIntoView({
+                                    behavior: 'smooth'
+                                });
+
+                                // Hide "No messages yet" state if it's the first message
+                                const emptyState = document.querySelector(
+                                    '.flex.flex-col.items-center.justify-center.h-full');
+                                if (emptyState) emptyState.style.display = 'none';
+                            }
+                        });
+                    }
+                }, 1000); // 1-second delay ensures Reverb/Pusher is fully initialized
+            });
         @endif
 
         // Search functionality

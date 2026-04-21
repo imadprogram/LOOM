@@ -30,9 +30,11 @@
             $hasUnreadMessages = \App\Models\Message::where('receiver_id', auth()->id())
                 ->where('is_read', false)
                 ->exists();
+            // Hide FAB on small screens when user is already viewing a conversation
+            $hideFabOnMobile = request()->routeIs('messages.index') && request()->has('user_id');
         @endphp
         <a href="/messages"
-            class="fixed bottom-8 right-8 bg-[#52c6be] text-white p-4 rounded-full shadow-lg shadow-[#52c6be]/30 hover:-translate-y-1 hover:shadow-[0_10px_20px_-5px_rgba(82,198,190,0.4)] transition-all z-50 group">
+            class="fixed bottom-8 right-8 bg-[#52c6be] text-white p-4 rounded-full shadow-lg shadow-[#52c6be]/30 hover:-translate-y-1 hover:shadow-[0_10px_20px_-5px_rgba(82,198,190,0.4)] transition-all z-50 group {{ $hideFabOnMobile ? 'hidden md:block' : '' }}">
             <div class="relative">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                     stroke="currentColor" class="w-6 h-6">

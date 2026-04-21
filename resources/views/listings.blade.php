@@ -13,79 +13,79 @@
     </div>
 
     <!-- Listings Grid -->
-    <div class="grid grid-cols-1 gap-6">
-        @php
-            // Placeholder data for the template
-            // You can replace this with @forelse($myAnnonces as $annonce) later 
-            $myListings = [
-                ['title' => 'Vintage Camera', 'price' => '120.00', 'status' => 'active', 'image' => 'https://picsum.photos/seed/camera/400/300'],
-                ['title' => 'Smart Watch', 'price' => '45.00', 'status' => 'sold', 'image' => 'https://picsum.photos/seed/watch/400/300'],
-            ];
-        @endphp
-
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
         @forelse($listings as $item)
-            <div class="bg-white border border-gray-100 rounded-3xl p-4 md:p-6 shadow-[0_4px_20px_-4px_rgba(0,0,0,0.05)] flex flex-col md:flex-row items-center gap-6 hover:shadow-md transition-shadow">
+            <div class="bg-white border border-gray-100 rounded-3xl overflow-hidden shadow-[0_4px_20px_-4px_rgba(0,0,0,0.05)] hover:shadow-md transition-shadow flex flex-col">
                 <!-- Image -->
-                <div class="w-full md:w-32 h-32 rounded-2xl overflow-hidden flex-shrink-0 bg-gray-50">
-                    <img src="{{ asset('storage/' . $item->images->first()->file_path) }}" class="w-full h-full object-cover">
+                <div class="w-full aspect-square rounded-3xl overflow-hidden bg-gray-100 flex items-center justify-center">
+                    @if ($item->images->isNotEmpty())
+                        <img src="{{ asset('storage/' . $item->images->first()->file_path) }}" class="w-full h-full object-cover">
+                    @else
+                        <span class="text-gray-400 font-bold">No Image</span>
+                    @endif
                 </div>
 
                 <!-- Info -->
-                <div class="flex-1 text-center md:text-left">
-                    <div class="flex flex-wrap justify-center md:justify-start items-center gap-3 mb-2">
-                        <h3 class="text-xl font-bold text-gray-900">{{ $item->title }}</h3>
-                        <span class="px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-widest {{ $item->status == 'active' ? 'bg-green-100 text-green-600' : 'bg-gray-100 text-gray-500' }}">
-                            {{ $item['status'] }}
+                <div class="p-5 flex flex-col flex-1">
+                    <!-- Title & Status Badge -->
+                    <div class="flex items-center gap-2 mb-2">
+                        <h3 class="text-sm font-bold text-gray-900 line-clamp-1">{{ $item->title }}</h3>
+                        <span class="px-2 py-0.5 rounded-full text-[9px] font-black uppercase tracking-widest flex-shrink-0 {{ $item->status == 'active' ? 'bg-green-100 text-green-600' : 'bg-gray-100 text-gray-500' }}">
+                            {{ ucfirst($item->status) }}
                         </span>
                     </div>
-                    <p class="text-[#52c6be] font-black text-lg">{{ $item->price }}€</p>
-                    <p class="text-gray-400 text-xs mt-1">Published on Oct 12, 2024</p>
-                </div>
+                    
+                    <!-- Price -->
+                    <p class="text-[#52c6be] font-black text-base mb-1">{{ $item->price }}€</p>
+                    
+                    <!-- Date -->
+                    <p class="text-gray-400 text-[11px] mb-4">Published on {{ $item->created_at->format('M d, Y') }}</p>
 
-                <!-- Actions -->
-                <div class="flex items-center gap-3 w-full md:w-auto">
-                    <!-- Status Toggle Button -->
-                    @if($item->status == 'active')
-                        <form action="{{ route('mark.as.sold' , $item->id) }}" method="post">
+                    <!-- Actions -->
+                    <div class="grid grid-cols-2 gap-2 mt-auto">
+                        <!-- Status Toggle Button -->
+                        @if($item->status == 'active')
+                            <form action="{{ route('mark.as.sold' , $item->id) }}" method="post" class="contents">
+                                @csrf
+                                @method('PUT')
+                                <button class="text-center px-3 py-2 rounded-full bg-[#52c6be]/10 text-[#52c6be] text-xs font-bold hover:bg-[#52c6be]/20 transition-colors">
+                                    Mark as Sold
+                                </button>
+                            </form>
+                        @else
+                            <form action="{{ route('mark.as.active' , $item->id) }}" method="post" class="contents">
+                                @csrf
+                                @method('PUT')
+                                <button class="text-center px-3 py-2 rounded-full bg-green-50 text-green-600 text-xs font-bold hover:bg-green-100 transition-colors">
+                                    Mark Active
+                                </button>
+                            </form>
+                        @endif
+
+                        @if(!$item->boosted_until || $item->boosted_until < now())
+                            <form action="{{ route('boost.checkout', $item->id) }}" method="POST" class="contents">
+                                @csrf
+                                <button class="text-center px-3 py-2 rounded-full bg-amber-50 text-amber-600 text-xs font-bold hover:bg-amber-100 transition-colors">
+                                    🚀 Boost
+                                </button>
+                            </form>
+                        @else
+                            <span class="text-center px-3 py-2 rounded-full bg-amber-100 text-amber-600 text-xs font-bold">
+                                🚀 Boosted
+                            </span>
+                        @endif
+
+                        <a href="{{ route('edit.listing' , $item->id) }}" class="text-center px-3 py-2 rounded-full border border-gray-200 text-xs font-bold text-gray-600 hover:bg-gray-50 transition-colors">
+                            Edit
+                        </a>
+                        <form action="{{ route('delete.listing' , $item->id) }}" method="post" class="contents">
                             @csrf
-                            @method('PUT')
-                            <button class="flex-1 md:flex-none text-center px-5 py-2.5 rounded-full bg-[#52c6be]/10 text-[#52c6be] text-sm font-bold hover:bg-[#52c6be]/20 transition-colors">
-                                Mark as Sold
+                            @method('DELETE')
+                            <button class="text-center px-3 py-2 rounded-full bg-red-50 text-red-500 text-xs font-bold hover:bg-red-100 transition-colors">
+                                Delete
                             </button>
                         </form>
-                    @else
-                        <form action="{{ route('mark.as.active' , $item->id) }}" method="post">
-                            @csrf
-                            @method('PUT')
-                            <button class="flex-1 md:flex-none text-center px-5 py-2.5 rounded-full bg-green-50 text-green-600 text-sm font-bold hover:bg-green-100 transition-colors">
-                                Mark as Active
-                            </button>
-                        </form>
-                    @endif
-
-                    @if(!$item->boosted_until || $item->boosted_until < now())
-                        <form action="{{ route('boost.checkout', $item->id) }}" method="POST">
-                            @csrf
-                            <button class="flex-1 md:flex-none text-center px-5 py-2.5 rounded-full bg-amber-50 text-amber-600 text-sm font-bold hover:bg-amber-100 transition-colors">
-                                🚀 Boost
-                            </button>
-                        </form>
-                    @else
-                        <span class="flex-1 md:flex-none text-center px-5 py-2.5 rounded-full bg-amber-100 text-amber-600 text-sm font-bold">
-                            🚀 Boosted
-                        </span>
-                    @endif
-
-                    <a href="{{ route('edit.listing' , $item->id) }}" class="flex-1 md:flex-none text-center px-5 py-2.5 rounded-full border border-gray-100 text-sm font-bold text-gray-600 hover:bg-gray-50 transition-colors">
-                        Edit
-                    </a>
-                    <form action="{{ route('delete.listing' , $item->id) }}" method="post">
-                        @csrf
-                        @method('DELETE')
-                        <button class="flex-1 md:flex-none text-center px-5 py-2.5 rounded-full bg-red-50 text-red-500 text-sm font-bold hover:bg-red-100 transition-colors">
-                            Delete
-                        </button>
-                    </form>
+                    </div>
                 </div>
             </div>
         @empty

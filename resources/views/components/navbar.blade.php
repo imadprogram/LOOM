@@ -10,7 +10,9 @@
 </div>
 
 <div class="flex items-center gap-5">
-        <a href="{{ route('search') }}"><ion-icon name="search-outline" class="text-2xl"></ion-icon></a>
+        @auth
+            <a href="{{ route('search') }}"><ion-icon name="search-outline" class="text-2xl"></ion-icon></a>
+        @endauth
         @auth
             <a href="/sell"
                 class="bg-[#52c6be] hover:bg-[#3fad9e] text-white px-5 py-2.5 rounded-full font-bold text-sm transition-all shadow-sm hover:shadow-md hover:-translate-y-0.5 mr-2">

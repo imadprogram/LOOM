@@ -40,10 +40,7 @@
             </div>
 
             <div>
-                <div class="flex items-center justify-between mb-1">
-                    <label for="password" class="block text-sm font-bold text-gray-700">Password</label>
-                    <a href="#" class="text-sm font-bold text-[#52c6be] hover:underline">Forgot password?</a>
-                </div>
+                <label for="password" class="block text-sm font-bold text-gray-700 mb-1">Password</label>
                 <input id="password" name="password" type="password" autocomplete="current-password" required 
                        class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-[#52c6be] focus:ring-2 focus:ring-[#52c6be]/20 transition-all outline-none bg-gray-50 focus:bg-white" 
                        placeholder="••••••••">
