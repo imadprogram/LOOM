@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('sender_id')->constrained('users');
             $table->foreignId('receiver_id')->constrained('users');
-            $table->foreignId('annonce_id')->constrained();
+            $table->foreignId('annonce_id')->nullable()->constrained()->onDelete('set null');
             $table->text('content');
             $table->boolean('is_read')->default(false);
             $table->timestamps();

@@ -303,7 +303,7 @@
                     body: JSON.stringify({
                         content: content,
                         receiver_id: "{{ $activeContact->id }}",
-                        annonce_id: "{{ request('annonce_id') ?? (optional($messages->first())->annonce_id ?? 1) }}"
+                        annonce_id: {!! request('annonce_id') ?? (optional($messages->first())->annonce_id ?? 'null') !!}
                     })
                 }).then(res => res.json()).then(data => {
                     input.value = "";

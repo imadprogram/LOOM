@@ -55,7 +55,11 @@
                             </td>
                         </tr>
                     @empty
-                        <h1>test</h1>
+                        <tr>
+                            <td colspan="5" class="p-8 text-center text-gray-400 font-medium italic">
+                                No reports found.
+                            </td>
+                        </tr>
                     @endforelse
 
                 </tbody>

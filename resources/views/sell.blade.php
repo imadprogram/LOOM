@@ -46,7 +46,7 @@
                             <path stroke-linecap="round" stroke-linejoin="round"
                                 d="M11.25 11.25l.041-.02a.75.75 0 011.063.852l-.708 2.836a.75.75 0 001.063.853l.041-.021M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9-3.75h.008v.008H12V8.25z" />
                         </svg>
-                        Tip: Select multiple photos. Each image must be under 10MB (JPEG, PNG, AVIF).
+                        Tip: Select multiple photos. Each image must be under 10MB (JPEG, PNG ...).
                     </p>
                 </div>
 
@@ -115,54 +115,93 @@
 @endsection
 
 <script>
-    function previewImages(event) {
-        const grid = document.getElementById('preview-grid');
-        const input = event.target;
-        const files = input.files;
+    let selectedFiles = []; // Keeps track of all selected files
 
-        // Check for the 5 image limit
-        if (files.length > 5) {
+    function previewImages(event) {
+        const input = event.target;
+        const newFiles = Array.from(input.files);
+
+        // Check if adding these new files exceeds the limit
+        if (selectedFiles.length + newFiles.length > 5) {
             Toastify({
-                text: "You can only upload a maximum of 5 images.",
+                text: `You can only upload up to 5 images. You already have ${selectedFiles.length}.`,
                 style: {
                     background: "#ef4444"
                 }
             }).showToast();
-
-            input.value = ""; // Clear the selection
-            grid.querySelectorAll('.preview-item').forEach(item => item.remove()); // Clear previews
+            input.value = ""; // Reset the input so it doesn't overwrite
             return;
         }
 
-        // Remove only previous previews, keeping the upload button
+        // Add valid new files to our array
+        newFiles.forEach(file => {
+            if (file.size > 10 * 1024 * 1024) {
+                Toastify({
+                    text: `File ${file.name} is too large (max 10MB)!`,
+                    style: {
+                        background: "#ef4444"
+                    }
+                }).showToast();
+            } else {
+                // Prevent adding duplicate files by name and size
+                const exists = selectedFiles.some(f => f.name === file.name && f.size === file.size);
+                if (!exists) {
+                    selectedFiles.push(file);
+                }
+            }
+        });
+
+        // Sync visual UI and the hidden input
+        updateInputAndPreviews();
+    }
+
+    function removeImage(index) {
+        // Remove file from array
+        selectedFiles.splice(index, 1);
+        updateInputAndPreviews();
+    }
+
+    function updateInputAndPreviews() {
+        const grid = document.getElementById('preview-grid');
+        const input = document.getElementById('image-input');
+
+        // 1. Clear old previews
         const existingPreviews = grid.querySelectorAll('.preview-item');
         existingPreviews.forEach(item => item.remove());
 
-        if (files) {
-            Array.from(files).forEach(file => {
-                if(file.size > 10 * 1024 * 1024){
-                    Toastify({ text: `File ${file.name} is too large!`}).showToast();
+        // 2. Sync array with actual <input> so they get submitted
+        const dataTransfer = new DataTransfer();
+        selectedFiles.forEach(file => dataTransfer.items.add(file));
+        input.files = dataTransfer.files;
 
-                    input.value = "";
-                    return;
-                }
-                const reader = new FileReader();
+        // 3. Render new previews with X buttons
+        selectedFiles.forEach((file, index) => {
+            const reader = new FileReader();
 
-                reader.onload = function(e) {
-                    const div = document.createElement('div');
-                    div.className =
-                        'preview-item relative aspect-square rounded-2xl overflow-hidden border border-gray-100 shadow-sm';
+            reader.onload = function(e) {
+                const div = document.createElement('div');
+                // The 'group' class is needed for the hover effect
+                div.className =
+                    'preview-item relative aspect-square rounded-2xl overflow-hidden border border-gray-100 shadow-sm group';
 
-                    div.innerHTML = `
+                div.innerHTML = `
                     <img src="${e.target.result}" class="w-full h-full object-cover">
+                    <!-- Overlay that appears on hover -->
+                    <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center backdrop-blur-sm">
+                        <button type="button" onclick="removeImage(${index})" class="w-10 h-10 bg-red-500 rounded-full flex items-center justify-center text-white hover:bg-red-600 hover:scale-110 shadow-lg transition-all cursor-pointer">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" class="w-5 h-5">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                            </svg>
+                        </button>
+                    </div>
                 `;
 
-                    grid.insertBefore(div, grid.lastElementChild);
-                }
+                // Insert the preview before the upload button
+                grid.insertBefore(div, grid.lastElementChild);
+            }
 
-                reader.readAsDataURL(file);
-            });
-        }
+            reader.readAsDataURL(file);
+        });
     }
 
     @if ($errors->any())
